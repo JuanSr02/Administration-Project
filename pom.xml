@@ -128,7 +128,12 @@
             <artifactId>slf4j-nop</artifactId>
             <version>1.7.29</version>
         </dependency>
-
+            <!-- Hibernate -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>6.5.2.Final</version>
+            </dependency>
 
     </dependencies>
 
