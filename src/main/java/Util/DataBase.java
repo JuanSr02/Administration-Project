@@ -30,7 +30,8 @@ public class DataBase {
         }
     }
     public static void main(String[] args) {
-        connect();
+        Connection conn = connect();
+
     }
 }
 

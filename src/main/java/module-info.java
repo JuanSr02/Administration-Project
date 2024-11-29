@@ -10,7 +10,8 @@ module com.example.martillero {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
-    requires java.sql;
+    requires org.hibernate.orm.core;
+    requires jakarta.persistence;
 
     opens com.example.martillero to javafx.fxml;
     exports com.example.martillero;

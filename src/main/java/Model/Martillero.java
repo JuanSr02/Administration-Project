@@ -5,9 +5,9 @@ import java.util.Arrays;
 public class Martillero extends Persona {
     private int ID;
     private String matricula;
-    private Propiedad[] propiedades;
+    private int[] propiedades;
 
-    public Martillero(int ID, String nombreCompleto, long DNI_CUIT_CUIL, long telefono, String email, int ID1, String matricula, Propiedad[] propiedades) {
+    public Martillero(int ID, String nombreCompleto, long DNI_CUIT_CUIL, long telefono, String email, int ID1, String matricula, int[] propiedades) {
         super(ID, nombreCompleto, DNI_CUIT_CUIL, telefono, email);
         this.ID = ID1;
         this.matricula = matricula;
@@ -32,11 +32,11 @@ public class Martillero extends Persona {
         this.matricula = matricula;
     }
 
-    public Propiedad[] getPropiedades() {
+    public int[] getPropiedades() {
         return propiedades;
     }
 
-    public void setPropiedades(Propiedad[] propiedades) {
+    public void setPropiedades(int[] propiedades) {
         this.propiedades = propiedades;
     }
 
