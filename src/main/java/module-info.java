@@ -12,7 +12,4 @@ module com.example.martillero {
     requires com.almasb.fxgl.all;
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
-
-    opens com.example.martillero to javafx.fxml;
-    exports com.example.martillero;
 }

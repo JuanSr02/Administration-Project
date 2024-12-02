@@ -13,13 +13,25 @@ public class PersonaDAO{
     private String nombreCompleto;
 
     @Column(name = "DNI_CUIT_CUIL", nullable = false, unique = true)
-    private long dniCuitCuil;
+    private String dniCuitCuil;
 
     @Column(name = "telefono")
-    private Long telefono;
+    private String telefono;
 
     @Column(name = "email")
     private String email;
+
+    public PersonaDAO() {
+
+    }
+
+    public PersonaDAO(String nombreCompleto, int id, String dniCuitCuil, String telefono, String email) {
+        this.nombreCompleto = nombreCompleto;
+        this.id = id;
+        this.dniCuitCuil = dniCuitCuil;
+        this.telefono = telefono;
+        this.email = email;
+    }
 
     // Getters y setters
     public int getId() {
@@ -38,19 +50,19 @@ public class PersonaDAO{
         this.nombreCompleto = nombreCompleto;
     }
 
-    public long getDniCuitCuil() {
+    public String getDniCuitCuil() {
         return dniCuitCuil;
     }
 
-    public void setDniCuitCuil(long dniCuitCuil) {
+    public void setDniCuitCuil(String dniCuitCuil) {
         this.dniCuitCuil = dniCuitCuil;
     }
 
-    public Long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
