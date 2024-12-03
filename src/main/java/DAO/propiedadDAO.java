@@ -1,46 +1,60 @@
 package DAO;
 
 import jakarta.persistence.*;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "Propiedad")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class propiedadDAO {
-    @Id
-    private int id;
 
-    @Column(name = "direccion", nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int ID;
+
+    @Column(nullable = false)
     private String direccion;
 
-    @Column(name = "plano")
+    @Column(nullable = true)
     private String plano;
 
-    @Column(name = "moneda")
+    @Column(nullable = false)
     private String moneda;
 
-    @Column(name = "formaPago")
+    @Column(nullable = false)
     private String formaPago;
 
-    @Column(name = "estado")
+    @Column(nullable = false)
     private String estado;
 
-    @Column(name = "fotos")
-    private String fotos;
+    @Column(name = "fotos", columnDefinition = "TEXT")
+    private String fotos; // SQLite maneja TEXT como un string.
 
-    @Column(name = "notas")
+    @Column(name = "notas", columnDefinition = "TEXT")
     private String notas;
 
     @ManyToOne
-    @JoinColumn(name = "duenioID")
+    @JoinColumn(name = "duenioID", nullable = false)
     private PersonaDAO duenio;
 
-    // Getters y setters
-    public int getId() {
-        return id;
+    public propiedadDAO() {}
+
+    public propiedadDAO(String direccion, String plano, String moneda, String formaPago, String estado, String fotos, String notas, PersonaDAO duenio) {
+        this.direccion = direccion;
+        this.plano = plano;
+        this.moneda = moneda;
+        this.formaPago = formaPago;
+        this.estado = estado;
+        this.fotos = fotos;
+        this.notas = notas;
+        this.duenio = duenio;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getDireccion() {
@@ -106,6 +120,19 @@ public class propiedadDAO {
     public void setDuenio(PersonaDAO duenio) {
         this.duenio = duenio;
     }
+
+    @Override
+    public String toString() {
+        return "PropiedadDAO{" +
+                "ID=" + ID +
+                ", direccion='" + direccion + '\'' +
+                ", plano='" + plano + '\'' +
+                ", moneda='" + moneda + '\'' +
+                ", formaPago='" + formaPago + '\'' +
+                ", estado='" + estado + '\'' +
+                ", fotos='" + fotos + '\'' +
+                ", notas='" + notas + '\'' +
+                ", duenio=" + duenio +
+                '}';
+    }
 }
-
-

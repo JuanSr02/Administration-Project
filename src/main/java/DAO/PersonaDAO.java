@@ -4,42 +4,40 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Persona")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class PersonaDAO{
+public class PersonaDAO {
+
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int ID;
 
     @Column(name = "nombreCompleto", nullable = false)
     private String nombreCompleto;
 
-    @Column(name = "DNI_CUIT_CUIL", nullable = false, unique = true)
-    private String dniCuitCuil;
+    @Column(name = "DNI_CUIT_CUIL", unique = true, nullable = false)
+    private long dniCuitCuil;
 
-    @Column(name = "telefono")
-    private String telefono;
+    @Column(name = "telefono", nullable = true)
+    private long telefono;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = true)
     private String email;
 
-    public PersonaDAO() {
+    public PersonaDAO() {}
 
-    }
-
-    public PersonaDAO(String nombreCompleto, int id, String dniCuitCuil, String telefono, String email) {
+    public PersonaDAO(int ID,String nombreCompleto, long dniCuitCuil, long telefono, String email) {
+        this.ID= ID;
         this.nombreCompleto = nombreCompleto;
-        this.id = id;
         this.dniCuitCuil = dniCuitCuil;
         this.telefono = telefono;
         this.email = email;
     }
 
-    // Getters y setters
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getNombreCompleto() {
@@ -50,19 +48,19 @@ public class PersonaDAO{
         this.nombreCompleto = nombreCompleto;
     }
 
-    public String getDniCuitCuil() {
+    public long getDniCuitCuil() {
         return dniCuitCuil;
     }
 
-    public void setDniCuitCuil(String dniCuitCuil) {
+    public void setDniCuitCuil(long dniCuitCuil) {
         this.dniCuitCuil = dniCuitCuil;
     }
 
-    public String getTelefono() {
+    public Long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
 
@@ -73,5 +71,15 @@ public class PersonaDAO{
     public void setEmail(String email) {
         this.email = email;
     }
-}
 
+    @Override
+    public String toString() {
+        return "PersonaDAO{" +
+                "ID=" + ID +
+                ", nombreCompleto='" + nombreCompleto + '\'' +
+                ", dniCuitCuil=" + dniCuitCuil +
+                ", telefono=" + telefono +
+                ", email='" + email + '\'' +
+                '}';
+    }
+}

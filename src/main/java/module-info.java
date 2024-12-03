@@ -1,4 +1,4 @@
-module com.example.martillero {
+module java{
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;

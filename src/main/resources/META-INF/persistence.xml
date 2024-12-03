@@ -1,0 +1,19 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+    <persistence-unit name="my_persistence_unit">
+        <class>DAO.propiedadDAO</class>
+        <class>DAO.PersonaDAO</class>
+        <properties>
+            <!-- Configuración de la base de datos -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:C:/Users/juan__000/Desktop/Universidad/Pendientes/Software Daniela/martilleroDB.db" />
+            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+            <property name="jakarta.persistence.jdbc.user" value="" />
+            <property name="jakarta.persistence.jdbc.password" value="" />
+
+            <!-- Generación automática de esquema -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="update" />
+
+            <property name="hibernate.dialect" value="com.github.gwenn.sqlite.dialect.SQLiteDialect"/>
+
+        </properties>
+    </persistence-unit>
+</persistence>
