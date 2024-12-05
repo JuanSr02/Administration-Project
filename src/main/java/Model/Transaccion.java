@@ -1,9 +1,9 @@
 package Model;
 
 public class Transaccion {
-    private String nombreComprador;
+    private String nombreComprador; // o puede ser el id
     private int IDinmueble;
-    private int ID;
+    private int ID; // id de la transaccion
     private String fecha;
     private double monto;
 

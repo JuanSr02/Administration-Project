@@ -3,11 +3,11 @@ package Model;
 public class Persona {
     private int ID;
     private String nombreCompleto;
-    private long DNI_CUIT_CUIL;
-    private long telefono;
+    private String DNI_CUIT_CUIL;
+    private String telefono;
     private String email;
 
-    public Persona(int ID, String nombreCompleto, long DNI_CUIT_CUIL, long telefono, String email) {
+    public Persona(int ID, String nombreCompleto, String DNI_CUIT_CUIL, String telefono, String email) {
         this.ID = ID;
         this.nombreCompleto = nombreCompleto;
         this.DNI_CUIT_CUIL = DNI_CUIT_CUIL;
@@ -31,19 +31,19 @@ public class Persona {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public long getDNI_CUIT_CUIL() {
+    public String getDNI_CUIT_CUIL() {
         return DNI_CUIT_CUIL;
     }
 
-    public void setDNI_CUIT_CUIL(long DNI_CUIT_CUIL) {
+    public void setDNI_CUIT_CUIL(String DNI_CUIT_CUIL) {
         this.DNI_CUIT_CUIL = DNI_CUIT_CUIL;
     }
 
-    public long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

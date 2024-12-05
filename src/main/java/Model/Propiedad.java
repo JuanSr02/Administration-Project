@@ -5,15 +5,15 @@ import java.util.Arrays;
 public class Propiedad {
     private int ID;
     private String direccion;
-    private String plano;
+    private String plano; // EL STRING ES LA RUTA DEL PLANO
     private String moneda;
     private String formaPago;
     private String estado;
-    private String[] fotos;
-    private String notas;
-    private Persona duenio;
+    private String[] fotos; // CADA STRING DEL ARRREGLO ES LA RUTA DE LA FOTO.
+    private String notas; // NOTAS ADICIONALES
+    private String duenio; // NOMBRE COMPLETO DEL DUEÑO o puede ser el id
 
-    public Propiedad(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, Persona duenio) {
+    public Propiedad(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, String duenio) {
         this.ID = ID;
         this.direccion = direccion;
         this.plano = plano;
@@ -89,11 +89,11 @@ public class Propiedad {
         this.notas = notas;
     }
 
-    public Persona getDuenio() {
+    public String getDuenio() {
         return duenio;
     }
 
-    public void setDuenio(Persona duenio) {
+    public void setDuenio(String duenio) {
         this.duenio = duenio;
     }
 
@@ -108,7 +108,7 @@ public class Propiedad {
                 ", estado='" + estado + '\'' +
                 ", fotos=" + Arrays.toString(fotos) +
                 ", notas='" + notas + '\'' +
-                ", duenio=" + duenio +
+                ", dueño=" + duenio +
                 '}';
     }
 }

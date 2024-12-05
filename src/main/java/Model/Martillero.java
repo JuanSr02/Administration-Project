@@ -5,9 +5,9 @@ import java.util.Arrays;
 public class Martillero extends Persona {
     private int ID;
     private String matricula;
-    private int[] propiedades;
+    private int[] propiedades; // ID DE LAS PROPIEDADES QUE TIENE A CARGO
 
-    public Martillero(int ID, String nombreCompleto, long DNI_CUIT_CUIL, long telefono, String email, int ID1, String matricula, int[] propiedades) {
+    public Martillero(int ID, String nombreCompleto, String DNI_CUIT_CUIL, String telefono, String email, int ID1, String matricula, int[] propiedades) {
         super(ID, nombreCompleto, DNI_CUIT_CUIL, telefono, email);
         this.ID = ID1;
         this.matricula = matricula;
