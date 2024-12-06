@@ -1,19 +1,22 @@
-<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
-    <persistence-unit name="my_persistence_unit">
-        <class>DAO.propiedadDAO</class>
-        <class>DAO.PersonaDAO</class>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+    <persistence-unit name="defaultPersistenceUnit">
+        <class>PersonaDAO</class>
+        <class>PropiedadDAO</class>
+        <class>MartilleroDAO</class>
+        <class>CasaDAO</class>
+        <class>DepartamentoDAO</class>
+        <class>LocalComercialDAO</class>
+        <class>Terreno_LoteDAO</class>
+        <class>TransaccionDAO</class>
         <properties>
-            <!-- Configuración de la base de datos -->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:C:/Users/juan__000/Desktop/Universidad/Pendientes/Software Daniela/martilleroDB.db" />
-            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-            <property name="jakarta.persistence.jdbc.user" value="" />
-            <property name="jakarta.persistence.jdbc.password" value="" />
-
-            <!-- Generación automática de esquema -->
-            <property name="jakarta.persistence.schema-generation.database.action" value="update" />
-
-            <property name="hibernate.dialect" value="com.github.gwenn.sqlite.dialect.SQLiteDialect"/>
-
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/martillero" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="admin" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -6,7 +6,7 @@ public class Terreno_Lote extends Propiedad {
     private String servicios_comodidades;
     private double Precio_Venta_Alquiler;
 
-    public Terreno_Lote(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, String duenio, int m2s, String estadoProp, String servicios_comodidades, double precio_Venta_Alquiler) {
+    public Terreno_Lote(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, int duenio, int m2s, String estadoProp, String servicios_comodidades, double precio_Venta_Alquiler) {
         super(ID, direccion, plano, moneda, formaPago, estado, fotos, notas, duenio);
         M2s = m2s;
         this.estadoProp = estadoProp;

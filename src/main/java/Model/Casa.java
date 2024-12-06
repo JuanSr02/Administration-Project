@@ -8,7 +8,7 @@ public class Casa extends Propiedad {
     private String servicios_comodidades;
     private double Precio_Venta_Alquiler;
 
-    public Casa(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, String duenio, int m2Cubiertos, int m2Descubiertos, String ambientes, String estadoProp, String servicios_comodidades, double precio_Venta_Alquiler) {
+    public Casa(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, int duenio, int m2Cubiertos, int m2Descubiertos, String ambientes, String estadoProp, String servicios_comodidades, double precio_Venta_Alquiler) {
         super(ID, direccion, plano, moneda, formaPago, estado, fotos, notas, duenio);
         M2Cubiertos = m2Cubiertos;
         M2Descubiertos = m2Descubiertos;

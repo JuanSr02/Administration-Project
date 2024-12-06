@@ -6,7 +6,7 @@ public class LocalComercial extends Propiedad {
     private String estadoProp;
     private double Precio_Venta_Alquiler;
 
-    public LocalComercial(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, String duenio, int m2Cubiertos, String ambientes, String estadoProp, double precio_Venta_Alquiler) {
+    public LocalComercial(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, int duenio, int m2Cubiertos, String ambientes, String estadoProp, double precio_Venta_Alquiler) {
         super(ID, direccion, plano, moneda, formaPago, estado, fotos, notas, duenio);
         M2Cubiertos = m2Cubiertos;
         Ambientes = ambientes;

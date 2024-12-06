@@ -1,13 +1,13 @@
 package Model;
 
 public class Transaccion {
-    private String nombreComprador; // o puede ser el id
+    private int nombreComprador; // o puede ser el id
     private int IDinmueble;
     private int ID; // id de la transaccion
     private String fecha;
     private double monto;
 
-    public Transaccion(String nombreComprador, int IDinmueble, int ID, String fecha, double monto) {
+    public Transaccion(int nombreComprador, int IDinmueble, int ID, String fecha, double monto) {
         this.nombreComprador = nombreComprador;
         this.IDinmueble = IDinmueble;
         this.ID = ID;
@@ -15,11 +15,11 @@ public class Transaccion {
         this.monto = monto;
     }
 
-    public String getNombreComprador() {
+    public int getNombreComprador() {
         return nombreComprador;
     }
 
-    public void setNombreComprador(String nombreComprador) {
+    public void setNombreComprador(int nombreComprador) {
         this.nombreComprador = nombreComprador;
     }
 

@@ -11,9 +11,9 @@ public class Propiedad {
     private String estado;
     private String[] fotos; // CADA STRING DEL ARRREGLO ES LA RUTA DE LA FOTO.
     private String notas; // NOTAS ADICIONALES
-    private String duenio; // NOMBRE COMPLETO DEL DUEÑO o puede ser el id
+    private int duenio; // id dueño
 
-    public Propiedad(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, String duenio) {
+    public Propiedad(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas, int duenio) {
         this.ID = ID;
         this.direccion = direccion;
         this.plano = plano;
@@ -89,11 +89,11 @@ public class Propiedad {
         this.notas = notas;
     }
 
-    public String getDuenio() {
+    public int getDuenio() {
         return duenio;
     }
 
-    public void setDuenio(String duenio) {
+    public void setDuenio(int duenio) {
         this.duenio = duenio;
     }
 
