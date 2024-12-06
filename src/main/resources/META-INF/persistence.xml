@@ -1,22 +1,30 @@
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="defaultPersistenceUnit">
-        <class>PersonaDAO</class>
-        <class>PropiedadDAO</class>
-        <class>MartilleroDAO</class>
-        <class>CasaDAO</class>
-        <class>DepartamentoDAO</class>
-        <class>LocalComercialDAO</class>
-        <class>Terreno_LoteDAO</class>
-        <class>TransaccionDAO</class>
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="PersistenceUnit">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>DAO.PersonaDAO</class>
+        <class>DAO.PropiedadDAO</class>
+        <class>DAO.DepartamentoDAO</class>
+        <class>DAO.CasaDAO</class>
+        <class>DAO.LocalComercialDAO</class>
+        <class>DAO.Terreno_LoteDAO</class>
+        <class>DAO.TransaccionDAO</class>
+        <class>DAO.MartilleroDAO</class>
+
+        <!-- Agrega todas las clases de entidades aquí -->
+
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/martillero" />
+            <property name="jakarta.persistence.jdbc.user" value="root" />
+            <property name="jakarta.persistence.jdbc.password" value="admin" />
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
             <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/martillero" />
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="admin" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>

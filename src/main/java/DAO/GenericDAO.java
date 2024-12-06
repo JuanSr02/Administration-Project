@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GenericDAO<T> {
     private final Class<T> entityClass;
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceUnit");
 
     public GenericDAO(Class<T> entityClass) {
         this.entityClass = entityClass;

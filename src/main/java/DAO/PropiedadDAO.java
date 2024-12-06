@@ -5,6 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "propiedad")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PropiedadDAO{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

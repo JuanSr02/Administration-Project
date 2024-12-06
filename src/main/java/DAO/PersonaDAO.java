@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "persona")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PersonaDAO{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

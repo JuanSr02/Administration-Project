@@ -16,7 +16,7 @@ public class Main {
         PersonaDAODAO.create(PersonaDAO);
 
         // Leer
-        PersonaDAO fetchedPersonaDAO = PersonaDAODAO.read(1);
+        PersonaDAO fetchedPersonaDAO = PersonaDAODAO.read(5);
         System.out.println("PersonaDAO leída: " + fetchedPersonaDAO.getNombreCompleto());
 
         // Actualizar
@@ -24,7 +24,7 @@ public class Main {
         PersonaDAODAO.update(fetchedPersonaDAO);
 
         // Eliminar
-        PersonaDAODAO.delete(1);
+        PersonaDAODAO.delete(5);
     }
 }
 
