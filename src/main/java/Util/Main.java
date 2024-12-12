@@ -8,6 +8,7 @@ public class Main {
         GenericDAO<PersonaDAO> PersonaDAODAO = new GenericDAO<>(PersonaDAO.class);
 
         // Crear
+        int id = 4;
         PersonaDAO PersonaDAO = new PersonaDAO();
         PersonaDAO.setNombreCompleto("Juan Pérez");
         PersonaDAO.setDNI_CUIT_CUIL("20304050607");
@@ -16,7 +17,7 @@ public class Main {
         PersonaDAODAO.create(PersonaDAO);
 
         // Leer
-        PersonaDAO fetchedPersonaDAO = PersonaDAODAO.read(5);
+        PersonaDAO fetchedPersonaDAO = PersonaDAODAO.read(id);
         System.out.println("PersonaDAO leída: " + fetchedPersonaDAO.getNombreCompleto());
 
         // Actualizar
