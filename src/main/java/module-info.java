@@ -13,5 +13,5 @@ module java{
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
     opens DAO to org.hibernate.orm.core; // Cambia "DAO" por el nombre de tu paquete
-
+    opens Controller to javafx.graphics;
 }
