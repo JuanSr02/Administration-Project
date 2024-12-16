@@ -10,12 +10,11 @@ import java.net.URL;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        URL fxmlLocation = Main.class.getResource("newMain.fxml");
+        URL fxmlLocation = Main.class.getResource("Principal.fxml");
         if (fxmlLocation == null) {
-            throw new RuntimeException("No se encontró el archivo newMain.fxml");
+            throw new RuntimeException("No se encontró el archivo Principal.fxml");
         }
-        //FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("newMain.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
         Scene scene = new Scene(fxmlLoader.load(), 400, 300);
         stage.setTitle("JavaFX + Scene Builder");
         stage.setScene(scene);
