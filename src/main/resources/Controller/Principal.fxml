@@ -12,33 +12,36 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="629.0" style="-fx-background-color: #FFEBCD;" stylesheets="@../Principal.css" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="Controller.principalController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="669.0" style="-fx-background-color: #FFEBCD;" stylesheets="@../Principal.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.principalController">
   <tabs>
     <Tab fx:id="tabBegin" text="Inicio">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="453.0" prefWidth="661.0" style="-fx-background-color: #FFEBCD;">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="454.0" prefWidth="652.0" style="-fx-background-color: #FFEBCD;">
                <children>
-                  <ImageView fitHeight="228.0" fitWidth="249.0" layoutX="66.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="228.0" fitWidth="249.0" layoutX="68.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/Iconos-carreras-01.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="222.0" fitWidth="221.0" layoutX="341.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="222.0" fitWidth="221.0" layoutX="374.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/logo%20824.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="452.0" layoutY="343.0" text="Daniela Rodoni">
+                  <Label layoutX="484.0" layoutY="397.0" text="Daniela Rodoni">
                      <font>
                         <Font name="JetBrains Mono Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="502.0" layoutY="375.0" text="Matr. 1039">
+                  <Label layoutX="534.0" layoutY="429.0" text="Matr. 1039">
                      <font>
                         <Font name="JetBrains Mono Bold" size="14.0" />
                      </font>
                   </Label>
-                  <StackPane fx:id="titleContainer" layoutY="7.0" prefHeight="84.0" prefWidth="629.0" styleClass="title-container" />
+                  <StackPane fx:id="titleContainer" prefHeight="110.0" prefWidth="669.0" styleClass="title-container">
+                     <children>
+                        <Label prefHeight="70.0" prefWidth="596.0" styleClass="title" text="824 Propiedades/Inmobiliaria" />
+                     </children></StackPane>
                </children></AnchorPane>
       </content>
     </Tab>
@@ -46,7 +49,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="46.0" layoutY="26.0" prefHeight="314.0" prefWidth="502.0">
+                  <TableView layoutX="46.0" layoutY="26.0" prefHeight="428.0" prefWidth="596.0">
                     <columns>
                       <TableColumn prefWidth="173.0" text="Direccion" />
                       <TableColumn prefWidth="93.0" text="Estado" />

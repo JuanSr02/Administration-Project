@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 .tab-pane {
     -fx-background-color: #f4f4f4;
 }
@@ -59,7 +60,7 @@
 .title-container {
     -fx-alignment: center; /* Centrado horizontal */
     -fx-padding: 20; /* Espaciado interno */
-    -fx-background-color: #F0F8FF; /* Fondo Alice Blue */
+    -fx-background-color: #FFDAB9; /* Fondo Alice Blue */
     -fx-background-radius: 10; /* Bordes redondeados */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.5, 0, 4); /* Sombra suave */
 }
@@ -67,7 +68,7 @@
 /* Estilo del texto del título */
 .title {
     -fx-font-family: 'Montserrat', sans-serif; /* Fuente moderna */
-    -fx-font-size: 48px; /* Tamaño del texto */
+    -fx-font-size: 38px; /* Tamaño del texto */
     -fx-font-weight: bold; /* Negrita */
     -fx-text-fill: #4682B4; /* Color Steel Blue */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 2, 2); /* Sombra al texto */
