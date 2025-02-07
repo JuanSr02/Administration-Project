@@ -12,6 +12,6 @@ module java{
     requires com.almasb.fxgl.all;
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
-    opens DAO to org.hibernate.orm.core; // Cambia "DAO" por el nombre de tu paquete
     opens Controller;
+    opens DAO;
 }

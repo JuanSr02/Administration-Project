@@ -1,19 +1,15 @@
 package Controller;
 
-import DAO.GenericDAO;
 import DAO.PropiedadDAO;
+import DAO.GenericDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class principalController {
-    @FXML
-    private TabPane tabPane;
+public class PropiedadController {
     @FXML
     private TableView<PropiedadDAO> tableView;
     @FXML
@@ -29,7 +25,7 @@ public class principalController {
 
     @FXML
     public void initialize() {
-        colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        colDireccion.setCellValueFactory(new PropertyValueFactory<>("dirección"));
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio_Venta_Alquiler")); // Asegúrate que el getter es correcto
         colDuenio.setCellValueFactory(cellData ->
@@ -48,4 +44,3 @@ public class principalController {
         tableView.setItems(propiedades);
     }
 }
-

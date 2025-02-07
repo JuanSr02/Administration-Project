@@ -3,7 +3,7 @@ package Util;
 import DAO.GenericDAO;
 import DAO.PersonaDAO;
 
-public class Main {
+public class MainPrueba {
     public static void main(String[] args) {
         GenericDAO<PersonaDAO> PersonaDAODAO = new GenericDAO<>(PersonaDAO.class);
 

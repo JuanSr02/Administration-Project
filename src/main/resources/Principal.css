@@ -67,8 +67,8 @@
 
 /* Estilo del texto del título */
 .title {
-    -fx-font-family: 'Montserrat', sans-serif; /* Fuente moderna */
-    -fx-font-size: 38px; /* Tamaño del texto */
+    -fx-font-family: 'Arial', sans-serif; /* Fuente moderna */
+    -fx-font-size: 55px; /* Tamaño del texto */
     -fx-font-weight: bold; /* Negrita */
     -fx-text-fill: #4682B4; /* Color Steel Blue */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 2, 2); /* Sombra al texto */
@@ -81,3 +81,53 @@
     -fx-border-radius: 2; /* Redondeo de la línea */
     -fx-padding: 10 0 0 0; /* Espaciado superior */
 }
+
+.table-view {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #c4c4c4;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-family: "Arial";
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 4);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C);
+    -fx-background-radius: 10px 10px 0px 0px;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-font-size: 13px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #8BC34A;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #C8E6C9;
+}
+
+.table-cell {
+    -fx-padding: 5px;
+}
+
+
