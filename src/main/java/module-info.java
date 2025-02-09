@@ -12,6 +12,7 @@ module java{
     requires com.almasb.fxgl.all;
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
+    requires java.desktop;
     opens Controller;
     opens DAO;
 }
