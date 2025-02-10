@@ -68,7 +68,7 @@
 /* Estilo del texto del título */
 .title {
     -fx-font-family: 'Arial', sans-serif; /* Fuente moderna */
-    -fx-font-size: 55px; /* Tamaño del texto */
+    -fx-font-size: 50px; /* Tamaño del texto */
     -fx-font-weight: bold; /* Negrita */
     -fx-text-fill: #4682B4; /* Color Steel Blue */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.5, 2, 2); /* Sombra al texto */

@@ -94,7 +94,7 @@ public class principalController {
                 }
 
                 // Generar un nombre único basado en la fecha y hora
-                String nombreArchivo = System.currentTimeMillis() + "_" + file.getName();
+                String nombreArchivo = tfDireccion.getText() + "_" + file.getName();
                 Path destino = directorioDestino.resolve(nombreArchivo);
 
                 // Copiar el archivo a la carpeta del proyecto
@@ -156,9 +156,9 @@ public class principalController {
             }
 
             nuevaPropiedad.setDireccion(direccion);
-            //nuevaPropiedad.setPrecio_Venta_Alquiler(precio);
+            nuevaPropiedad.setPrecio_Venta_Alquiler(precio);
             nuevaPropiedad.setEstado(estado);
-            nuevaPropiedad.setNotas(notas);
+            nuevaPropiedad.setNotas_servicios_comodidades(notas);
             nuevaPropiedad.setDuenio(duenio);
             nuevaPropiedad.setFotos(List.of(rutaImagenSeleccionada)); // Guardamos la ruta de la imagen
 

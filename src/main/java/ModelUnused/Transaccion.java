@@ -1,4 +1,4 @@
-package Model;
+package ModelUnused;
 
 public class Transaccion {
     private int nombreComprador; // o puede ser el id

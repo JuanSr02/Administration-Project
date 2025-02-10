@@ -15,59 +15,36 @@ CREATE TABLE IF NOT EXISTS Propiedad (
     estado VARCHAR(50),
      -- Array de rutas de fotos
     fotos JSON,
-    notas VARCHAR(255),
-    -- Relación con Persona (dueño)
-    duenio INT,
-    FOREIGN KEY (duenio) REFERENCES Persona(ID) ON DELETE CASCADE
-);
-CREATE TABLE IF NOT EXISTS Martillero (
-    -- Mismo ID que Persona
-    ID INT PRIMARY KEY,
-    matricula VARCHAR(50) NOT NULL UNIQUE,
-    -- Array de IDs de propiedades
-    propiedades JSON,
-    -- Relación con Persona
-    FOREIGN KEY (ID) REFERENCES Persona(ID) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Casa (
-    -- Mismo ID que Propiedad
-    ID INT PRIMARY KEY,
+    notas_servicios_comodidades VARCHAR(255),
     M2Cubiertos INT,
     M2Descubiertos INT,
     Ambientes VARCHAR(100),
-    estadoProp VARCHAR(50),
-    servicios_comodidades VARCHAR(250),
     Precio_Venta_Alquiler DOUBLE,
+    -- Relación con Persona (dueño)
+    duenio INT,
+    -- Relación con Persona (inquilino, si aplica)
+    inquilino INT,
+    FOREIGN KEY (duenio) REFERENCES Persona(ID) ON DELETE CASCADE,
+    FOREIGN KEY (inquilino) REFERENCES Persona(ID)
+    );
+CREATE TABLE IF NOT EXISTS Casa (
+    -- Mismo ID que Propiedad
+    ID INT PRIMARY KEY,
     -- Relación con Propiedad
     FOREIGN KEY (ID) REFERENCES Propiedad(ID) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS Departamento (
     -- Mismo ID que Propiedad
     ID INT PRIMARY KEY,
-    M2Cubiertos INT,
-    M2Descubiertos INT,
-    Ambientes VARCHAR(100),
-    estadoProp VARCHAR(50),
-    servicios_comodidades VARCHAR(250),
-    Precio_Venta_Alquiler DOUBLE,
     FOREIGN KEY (ID) REFERENCES Propiedad(ID) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS LocalComercial (
     ID INT PRIMARY KEY,
-    M2Cubiertos INT,
-    Ambientes VARCHAR(100),
-    estadoProp VARCHAR(50),
-    Precio_Venta_Alquiler DOUBLE,
     -- Relación con Propiedad
     FOREIGN KEY (ID) REFERENCES Propiedad(ID) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS Terreno_Lote (
     ID INT PRIMARY KEY,
-    M2s INT,
-    estadoProp VARCHAR(50),
-    servicios_comodidades VARCHAR(250),
-    Precio_Venta_Alquiler DOUBLE,
     FOREIGN KEY (ID) REFERENCES Propiedad(ID) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS Transaccion (

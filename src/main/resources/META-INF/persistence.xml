@@ -13,7 +13,6 @@
         <class>DAO.LocalComercialDAO</class>
         <class>DAO.Terreno_LoteDAO</class>
         <class>DAO.TransaccionDAO</class>
-        <class>DAO.MartilleroDAO</class>
 
         <!-- Agrega todas las clases de entidades aquí -->
 

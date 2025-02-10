@@ -25,16 +25,16 @@ public class TestGenericDao {
             casa.setFormaPago("Contado");
             casa.setEstado("Disponible");
             casa.setFotos(List.of(new String[]{"/rutas/foto1.jpg", "/rutas/foto2.jpg"}));
-            casa.setNotas("Propiedad en excelente estado.");
-            PersonaDAO p = new PersonaDAO(); p.setID(1);
+            casa.setNotas_servicios_comodidades("Propiedad en excelente estado.");
+            PersonaDAO p = new PersonaDAO(); p.setID(2);
             casa.setDuenio(p); // Supongamos que el ID del dueño es 1
 
             // Campos específicos de la Casa
             casa.setM2Cubiertos(120);
             casa.setM2Descubiertos(50);
             casa.setAmbientes("3 dormitorios, 2 baños, cocina, sala");
-            casa.setEstadoProp("Lista para habitar");
-            casa.setServicios_comodidades("Agua, Luz, Gas, Internet");
+            casa.setEstado("Lista para habitar");
+            casa.setNotas_servicios_comodidades("Agua, Luz, Gas, Internet");
             casa.setPrecio_Venta_Alquiler(150000.0);
 
             casaDAO.create(casa);

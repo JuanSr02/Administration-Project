@@ -106,28 +106,44 @@
                                     <String fx:value="Terreno/Lote" />
                                 </FXCollections>
                             </items>
-
-
                             <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </ComboBox>
                         <Label text="Notas" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                        <TextField fx:id="tfDireccion" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfPrecio" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfEstado" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfDuenio" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextArea fx:id="taNotas" prefHeight="42.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfDireccion" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="tfPrecio" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="tfEstado" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="tfDuenio" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </GridPane.margin></TextField>
+                        <TextArea fx:id="taNotas" prefHeight="76.0" prefWidth="373.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                           </GridPane.margin></TextArea>
                         <Label text="Imagen" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                         <HBox fx:id="colImagen" alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <children>
                               <Button fx:id="btnSeleccionarImagen" mnemonicParsing="false" onAction="#seleccionarImagen" text="Seleccionar Imagen" />
-                              <Label fx:id="lblImagenSeleccionada" text="Ninguna imagen seleccionada" wrapText="true" />
+                              <Label fx:id="lblImagenSeleccionada" alignment="CENTER" text="Ninguna imagen seleccionada" wrapText="true">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding></Label>
                            </children>
                         </HBox>
                      </children>
                   </GridPane>
-                  <Label layoutX="130.0" layoutY="14.0" prefHeight="70.0" prefWidth="490.0" styleClass="title" text="Añadir Propiedad" />
+                  <Label layoutX="164.0" layoutY="14.0" prefHeight="70.0" prefWidth="435.0" styleClass="title" text="Añadir Propiedad" />
                   <Button fx:id="btnGuardar" layoutX="564.0" layoutY="500.0" mnemonicParsing="false" onAction="#guardarPropiedad" text="Guardar Propiedad" />
                </children>
             </AnchorPane>

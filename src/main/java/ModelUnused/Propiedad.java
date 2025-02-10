@@ -1,44 +1,39 @@
-package DAO;
+package ModelUnused;
 
-import jakarta.persistence.*;
-import java.util.List;
+import java.util.Arrays;
 
-@Entity
-@Table(name = "propiedad")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class PropiedadDAO{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Propiedad {
     private int ID;
-
-    @Column(nullable = false)
     private String direccion;
-
-    private String plano;
+    private String plano; // EL STRING ES LA RUTA DEL PLANO
     private String moneda;
     private String formaPago;
     private String estado;
-
-    @ElementCollection
-    private List<String> fotos; // Almacena las rutas como una colección
-
-    private String notas_servicios_comodidades;
-
+    private String[] fotos; // CADA STRING DEL ARRREGLO ES LA RUTA DE LA FOTO.
+    private String notas_servicios_comodidades; // Servicios_comodidades
     private int M2Cubiertos;
     private int M2Descubiertos;
     private String Ambientes;
     private double Precio_Venta_Alquiler;
+    private int duenio; // id dueño
+    private int inquilino; // id inquilino
 
-    @ManyToOne
-    @JoinColumn(name = "duenio", nullable = false)
-    private PersonaDAO duenio;
-
-    @ManyToOne
-    @JoinColumn(name = "inquilino", nullable = true)
-    private PersonaDAO inquilino;
-
-    // Getters y Setters
-
+    public Propiedad(int ID, String direccion, String plano, String moneda, String formaPago, String estado, String[] fotos, String notas_servicios_comodidades, int m2Cubiertos, int m2Descubiertos, String ambientes, double precio_Venta_Alquiler, int inquilino, int duenio) {
+        this.ID = ID;
+        this.direccion = direccion;
+        this.plano = plano;
+        this.moneda = moneda;
+        this.formaPago = formaPago;
+        this.estado = estado;
+        this.fotos = fotos;
+        this.notas_servicios_comodidades = notas_servicios_comodidades;
+        M2Cubiertos = m2Cubiertos;
+        M2Descubiertos = m2Descubiertos;
+        Ambientes = ambientes;
+        Precio_Venta_Alquiler = precio_Venta_Alquiler;
+        this.inquilino = inquilino;
+        this.duenio = duenio;
+    }
 
     public int getID() {
         return ID;
@@ -88,11 +83,11 @@ public class PropiedadDAO{
         this.estado = estado;
     }
 
-    public List<String> getFotos() {
+    public String[] getFotos() {
         return fotos;
     }
 
-    public void setFotos(List<String> fotos) {
+    public void setFotos(String[] fotos) {
         this.fotos = fotos;
     }
 
@@ -136,32 +131,32 @@ public class PropiedadDAO{
         Precio_Venta_Alquiler = precio_Venta_Alquiler;
     }
 
-    public PersonaDAO getDuenio() {
+    public int getDuenio() {
         return duenio;
     }
 
-    public void setDuenio(PersonaDAO duenio) {
+    public void setDuenio(int duenio) {
         this.duenio = duenio;
     }
 
-    public PersonaDAO getInquilino() {
+    public int getInquilino() {
         return inquilino;
     }
 
-    public void setInquilino(PersonaDAO inquilino) {
+    public void setInquilino(int inquilino) {
         this.inquilino = inquilino;
     }
 
     @Override
     public String toString() {
-        return "PropiedadDAO{" +
+        return "Propiedad{" +
                 "ID=" + ID +
                 ", direccion='" + direccion + '\'' +
                 ", plano='" + plano + '\'' +
                 ", moneda='" + moneda + '\'' +
                 ", formaPago='" + formaPago + '\'' +
                 ", estado='" + estado + '\'' +
-                ", fotos=" + fotos +
+                ", fotos=" + Arrays.toString(fotos) +
                 ", notas_servicios_comodidades='" + notas_servicios_comodidades + '\'' +
                 ", M2Cubiertos=" + M2Cubiertos +
                 ", M2Descubiertos=" + M2Descubiertos +
