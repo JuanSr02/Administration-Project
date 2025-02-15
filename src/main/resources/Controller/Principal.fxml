@@ -134,8 +134,8 @@
                         <Label text="Imagen" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                         <HBox fx:id="colImagen" alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="377.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <children>
-                              <Button fx:id="btnSeleccionarImagen" mnemonicParsing="false" onAction="#seleccionarImagen" text="Seleccionar Imagen" />
-                              <Label fx:id="lblImagenSeleccionada" alignment="CENTER" text="Ninguna imagen seleccionada" wrapText="true">
+                              <Button fx:id="btnSeleccionarImagen" mnemonicParsing="false" onAction="#seleccionarImagenes" text="Seleccionar Imagenes" />
+                              <Label fx:id="lblImagenesSeleccionadas" alignment="CENTER" text="Ninguna imagen seleccionada" wrapText="true">
                                  <padding>
                                     <Insets left="20.0" />
                                  </padding></Label>

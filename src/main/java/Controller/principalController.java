@@ -17,12 +17,15 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,47 +71,56 @@ public class principalController {
     @FXML private ComboBox<String> cbTipoPropiedad;
     @FXML private TextField tfDireccion, tfPrecio, tfEstado, tfDuenio;
     @FXML private TextArea taNotas;
-    @FXML private Label lblImagenSeleccionada;
+    @FXML private Label lblImagenesSeleccionadas;
     @FXML private Button btnSeleccionarImagen, btnGuardar;
 
     private final GenericDAO<PersonaDAO> personaDAO = new GenericDAO<>(PersonaDAO.class);
 
-    private String rutaImagenSeleccionada = null; // Guardará la ruta del archivo seleccionado
+    private List<String> rutaImagenesSeleccionadas = null; // Guardará la ruta del archivo seleccionado
 
     @FXML
-    public void seleccionarImagen() {
+    public void seleccionarImagenes() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Seleccionar Imagen");
+        fileChooser.setTitle("Seleccionar Imágenes");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.jpeg")
         );
 
-        File file = fileChooser.showOpenDialog(btnSeleccionarImagen.getScene().getWindow());
+        List<File> archivosSeleccionados = fileChooser.showOpenMultipleDialog(btnSeleccionarImagen.getScene().getWindow());
 
-        if (file != null) {
+        if (archivosSeleccionados != null) {
+            List<String> rutasGuardadas = new ArrayList<>();
+
             try {
-                // Crear la carpeta si no existe
                 Path directorioDestino = Paths.get("src/main/resources/images/properties/");
                 if (!Files.exists(directorioDestino)) {
                     Files.createDirectories(directorioDestino);
                 }
 
-                // Generar un nombre único basado en la fecha y hora
-                String nombreArchivo = tfDireccion.getText() + "_" + file.getName();
-                Path destino = directorioDestino.resolve(nombreArchivo);
+                for (File file : archivosSeleccionados) {
+                    // Generar un nombre único
+                    String nombreArchivo = System.currentTimeMillis() + "_" + file.getName();
+                    Path destino = directorioDestino.resolve(nombreArchivo);
 
-                // Copiar el archivo a la carpeta del proyecto
-                Files.copy(file.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+                    // Copiar el archivo
+                    Files.copy(file.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
 
-                // Guardamos la ruta relativa en la base de datos
-                rutaImagenSeleccionada = "images/properties/" + nombreArchivo;
+                    // Agregar la ruta relativa a la lista
+                    rutasGuardadas.add("images/properties/" + nombreArchivo);
+                }
 
-                lblImagenSeleccionada.setText(nombreArchivo); // Mostramos el nombre de la imagen seleccionada
+                // Guardamos la lista de rutas en la propiedad
+                rutaImagenesSeleccionadas = rutasGuardadas;
+
+                // Mostrar la cantidad de imágenes seleccionadas en la UI
+                lblImagenesSeleccionadas.setText("Imágenes seleccionadas: " + rutasGuardadas.size());
+
             } catch (IOException e) {
-                mostrarAlerta("Error", "No se pudo copiar la imagen: " + e.getMessage());
+                mostrarAlerta("Error", "No se pudieron copiar las imágenes: " + e.getMessage());
             }
         }
     }
+
 
     @FXML
     public void guardarPropiedad() {
@@ -160,12 +172,22 @@ public class principalController {
             nuevaPropiedad.setEstado(estado);
             nuevaPropiedad.setNotas_servicios_comodidades(notas);
             nuevaPropiedad.setDuenio(duenio);
-            nuevaPropiedad.setFotos(List.of(rutaImagenSeleccionada)); // Guardamos la ruta de la imagen
+            nuevaPropiedad.setFotos(rutaImagenesSeleccionadas); // Guardamos la ruta de la imagen
 
             propiedadDAO.create(nuevaPropiedad);
             mostrarAlerta("Éxito", "Propiedad guardada correctamente.");
 
-            ((Stage) btnGuardar.getScene().getWindow()).close();
+            // Limpiar los campos para agregar otra propiedad
+            tfDireccion.clear();
+            tfPrecio.clear();
+            cbTipoPropiedad.setValue(null);
+            tfEstado.clear();
+            tfDuenio.clear();
+            taNotas.clear();
+            if(rutaImagenesSeleccionadas != null)
+                rutaImagenesSeleccionadas.clear();
+            lblImagenesSeleccionadas.setText("Ninguna imagen seleccionada");// Si hay una lista de fotos, limpiarla también
+
         } catch (Exception e) {
             mostrarAlerta("Error", "Datos inválidos: " + e.getMessage());
         }
