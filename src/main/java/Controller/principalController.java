@@ -44,8 +44,15 @@ public class principalController {
     @FXML
     private TableColumn<PropiedadDAO, String> colDuenio;
 
-
     private final GenericDAO<PropiedadDAO> propiedadDAO = new GenericDAO<>(PropiedadDAO.class);
+
+    @FXML
+    private Button btnModificarProp;
+    @FXML
+    private Button btnBorrarProp;
+
+
+
 
     @FXML
     public void initialize() {
@@ -61,15 +68,33 @@ public class principalController {
         );
 
         cargarDatos();
+        // Ocultar los botones al iniciar
+        btnModificarProp.setVisible(false);
+        btnBorrarProp.setVisible(false);
+
+        // Listener para detectar selección en la tabla
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                // Si hay una propiedad seleccionada, mostrar los botones
+                btnModificarProp.setVisible(true);
+                btnBorrarProp.setVisible(true);
+            } else {
+                // Si no hay selección, ocultar los botones
+                btnModificarProp.setVisible(false);
+                btnBorrarProp.setVisible(false);
+            }
+        });
     }
 
-    private void cargarDatos() {
+    @FXML
+    public void cargarDatos() {
+        tfBuscador.clear();
         ObservableList<PropiedadDAO> propiedades = FXCollections.observableArrayList(propiedadDAO.readAll());
         tableView.setItems(propiedades);
     }
 
     @FXML private ComboBox<String> cbTipoPropiedad;
-    @FXML private TextField tfDireccion, tfPrecio, tfEstado, tfDuenio;
+    @FXML private TextField tfDireccion, tfPrecio, tfEstado, tfDuenio,tfBuscador;
     @FXML private TextArea taNotas;
     @FXML private Label lblImagenesSeleccionadas;
     @FXML private Button btnSeleccionarImagen, btnGuardar;
@@ -193,6 +218,42 @@ public class principalController {
         }
     }
 
+    @FXML
+    public void borrarPropiedad() {
+        // Obtener la propiedad seleccionada
+        PropiedadDAO propiedadSeleccionada = tableView.getSelectionModel().getSelectedItem();
+
+        if (propiedadSeleccionada == null) {
+            mostrarAlerta("Advertencia", "Debe seleccionar una propiedad para borrar.");
+            return;
+        }
+
+        // Crear la alerta de confirmación
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Confirmar Eliminación");
+        confirmacion.setHeaderText("¿Está seguro de que desea eliminar esta propiedad?");
+        confirmacion.setContentText("Dirección: " + propiedadSeleccionada.getDireccion() +
+                "\nDueño: " + (propiedadSeleccionada.getDuenio() != null ? propiedadSeleccionada.getDuenio().getNombreCompleto() : "Sin dueño"));
+
+        // Mostrar la alerta y esperar la respuesta del usuario
+        confirmacion.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Eliminar la propiedad de la base de datos
+                propiedadDAO.delete(propiedadSeleccionada.getID());
+
+                // Actualizar la tabla
+                cargarDatos();
+
+                // Ocultar botones
+                btnModificarProp.setVisible(false);
+                btnBorrarProp.setVisible(false);
+
+                mostrarAlerta("Éxito", "Propiedad eliminada correctamente.");
+            }
+        });
+    }
+
+
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -200,6 +261,38 @@ public class principalController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
+    @FXML
+    public void buscarPropiedad() {
+        String busqueda = tfBuscador.getText().trim().toLowerCase();
+
+        if (busqueda.isEmpty()) {
+            cargarDatos(); // Si no se ingresó nada, se cargan todas las propiedades
+            return;
+        }
+
+        List<PropiedadDAO> todasLasPropiedades = propiedadDAO.readAll();
+        ObservableList<PropiedadDAO> propiedadesFiltradas = FXCollections.observableArrayList();
+
+        for (PropiedadDAO propiedad : todasLasPropiedades) {
+            if (
+                    propiedad.getDireccion().toLowerCase().contains(busqueda) ||
+                            (propiedad.getPlano() != null && propiedad.getPlano().toLowerCase().contains(busqueda)) ||
+                            (propiedad.getMoneda() != null && propiedad.getMoneda().toLowerCase().contains(busqueda)) ||
+                            (propiedad.getFormaPago() != null && propiedad.getFormaPago().toLowerCase().contains(busqueda)) ||
+                            (propiedad.getEstado() != null && propiedad.getEstado().toLowerCase().contains(busqueda)) ||
+                            (propiedad.getNotas_servicios_comodidades() != null && propiedad.getNotas_servicios_comodidades().toLowerCase().contains(busqueda)) ||
+                            (propiedad.getAmbientes() != null && propiedad.getAmbientes().toLowerCase().contains(busqueda)) ||
+                            (propiedad.getDuenio() != null && propiedad.getDuenio().getNombreCompleto().toLowerCase().contains(busqueda)) ||
+                            (propiedad.getInquilino() != null && propiedad.getInquilino().getNombreCompleto().toLowerCase().contains(busqueda))
+            ) {
+                propiedadesFiltradas.add(propiedad);
+            }
+        }
+
+        tableView.setItems(propiedadesFiltradas);
+    }
+
 
 
 }

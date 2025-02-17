@@ -59,7 +59,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="tableView" layoutX="55.0" layoutY="36.0" prefHeight="482.0" prefWidth="667.0">
+                  <TableView fx:id="tableView" layoutX="59.0" layoutY="63.0" prefHeight="421.0" prefWidth="667.0">
                     <columns>
                       <TableColumn fx:id="colDireccion" editable="false" prefWidth="233.0" resizable="false" text="Direccion" />
                       <TableColumn fx:id="colEstado" editable="false" prefWidth="113.0" resizable="false" text="Estado" />
@@ -70,6 +70,15 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <Button fx:id="btnModificarProp" layoutX="150.0" layoutY="500.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="183.0" style="-fx-background-color: #1363a8;" text="Modificar Propiedad" />
+                  <Button fx:id="btnBorrarProp" layoutX="451.0" layoutY="500.0" mnemonicParsing="false" onAction="#borrarPropiedad" prefHeight="40.0" prefWidth="183.0" style="-fx-background-color: red;" text="Borrar Propiedad" />
+                  <TextField fx:id="tfBuscador" layoutX="393.0" layoutY="15.0" prefHeight="40.0" prefWidth="149.0" />
+                  <ImageView fitHeight="41.0" fitWidth="42.0" layoutX="554.0" layoutY="14.0" onMouseClicked="#buscarPropiedad" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/buscar.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="605.0" layoutY="14.0" mnemonicParsing="false" onAction="#cargarDatos" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: #1363a8; -fx-font-size: 11;" text="Reiniciar Busqueda" />
                </children></AnchorPane>
       </content>
     </Tab>
