@@ -40,31 +40,54 @@ public class principalController {
     @FXML
     private TableColumn<PropiedadDAO, String> colEstado;
     @FXML
-    private TableColumn<PropiedadDAO, Double> colPrecio;
+    private TableColumn<PropiedadDAO, String> colTipo;
     @FXML
     private TableColumn<PropiedadDAO, String> colDuenio;
-
+    @FXML
+    private TableColumn<PropiedadDAO, String> colInquilino;
     private final GenericDAO<PropiedadDAO> propiedadDAO = new GenericDAO<>(PropiedadDAO.class);
-
     @FXML
     private Button btnModificarProp;
     @FXML
     private Button btnBorrarProp;
-
-
-
+    @FXML
+    private ComboBox<String> cbTipoPropiedad;
+    @FXML
+    private TextField tfDireccion, tfPrecio, tfEstado, tfDuenio, tfBuscador;
+    @FXML
+    private TextArea taNotas;
+    @FXML
+    private Label lblImagenesSeleccionadas;
+    @FXML
+    private Button btnSeleccionarImagen, btnGuardar;
+    @FXML
+    private Button btnVerModificarProp;
+    private final GenericDAO<PersonaDAO> personaDAO = new GenericDAO<>(PersonaDAO.class);
+    private List<String> rutaImagenesSeleccionadas = null; // Guardará la ruta del archivo seleccionado
 
     @FXML
     public void initialize() {
-        colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        // 📌 Nueva columna para el tipo de propiedad
+        colTipo.setCellValueFactory(cellData -> {
+            PropiedadDAO propiedad = cellData.getValue();
+            String tipo = obtenerTipoPropiedad(propiedad);
+            return new javafx.beans.property.SimpleStringProperty(tipo);
+        });
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio_Venta_Alquiler")); // Asegúrate que el getter es correcto
+        colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         colDuenio.setCellValueFactory(cellData ->
                 cellData.getValue().getDuenio() != null ?
                         javafx.beans.property.SimpleStringProperty.stringExpression(
                                 javafx.beans.binding.Bindings.createStringBinding(() -> cellData.getValue().getDuenio().getNombreCompleto())
                         ) :
                         javafx.beans.property.SimpleStringProperty.stringExpression(javafx.beans.binding.Bindings.createStringBinding(() -> "Sin dueño"))
+        );
+        colInquilino.setCellValueFactory(cellData ->
+                cellData.getValue().getInquilino() != null ?
+                        javafx.beans.property.SimpleStringProperty.stringExpression(
+                                javafx.beans.binding.Bindings.createStringBinding(() -> cellData.getValue().getInquilino().getNombreCompleto())
+                        ) :
+                        javafx.beans.property.SimpleStringProperty.stringExpression(javafx.beans.binding.Bindings.createStringBinding(() -> "Sin inquilino"))
         );
 
         cargarDatos();
@@ -86,22 +109,27 @@ public class principalController {
         });
     }
 
+    private String obtenerTipoPropiedad(PropiedadDAO propiedad) {
+        if (propiedad instanceof CasaDAO) {
+            return "Casa";
+        } else if (propiedad instanceof DepartamentoDAO) {
+            return "Departamento";
+        } else if (propiedad instanceof LocalComercialDAO) {
+            return "Local Comercial";
+        } else if (propiedad instanceof Terreno_LoteDAO) {
+            return "Terreno/Lote";
+        } else {
+            return "Desconocido";
+        }
+    }
+
+
     @FXML
     public void cargarDatos() {
         tfBuscador.clear();
         ObservableList<PropiedadDAO> propiedades = FXCollections.observableArrayList(propiedadDAO.readAll());
         tableView.setItems(propiedades);
     }
-
-    @FXML private ComboBox<String> cbTipoPropiedad;
-    @FXML private TextField tfDireccion, tfPrecio, tfEstado, tfDuenio,tfBuscador;
-    @FXML private TextArea taNotas;
-    @FXML private Label lblImagenesSeleccionadas;
-    @FXML private Button btnSeleccionarImagen, btnGuardar;
-
-    private final GenericDAO<PersonaDAO> personaDAO = new GenericDAO<>(PersonaDAO.class);
-
-    private List<String> rutaImagenesSeleccionadas = null; // Guardará la ruta del archivo seleccionado
 
     @FXML
     public void seleccionarImagenes() {
@@ -209,7 +237,7 @@ public class principalController {
             tfEstado.clear();
             tfDuenio.clear();
             taNotas.clear();
-            if(rutaImagenesSeleccionadas != null)
+            if (rutaImagenesSeleccionadas != null)
                 rutaImagenesSeleccionadas.clear();
             lblImagenesSeleccionadas.setText("Ninguna imagen seleccionada");// Si hay una lista de fotos, limpiarla también
 
@@ -253,7 +281,6 @@ public class principalController {
         });
     }
 
-
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -292,9 +319,6 @@ public class principalController {
 
         tableView.setItems(propiedadesFiltradas);
     }
-
-
-
 }
 
 

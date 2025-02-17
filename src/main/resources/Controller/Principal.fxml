@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="754.0" style="-fx-background-color: #FFEBCD;" stylesheets="@../Principal.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.principalController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="754.0" style="-fx-background-color: #FFEBCD;" stylesheets="@../Principal.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.principalController">
   <tabs>
     <Tab fx:id="tabBegin" text="Inicio">
       <content>
@@ -61,17 +61,18 @@
                <children>
                   <TableView fx:id="tableView" layoutX="59.0" layoutY="63.0" prefHeight="421.0" prefWidth="667.0">
                     <columns>
-                      <TableColumn fx:id="colDireccion" editable="false" prefWidth="233.0" resizable="false" text="Direccion" />
-                      <TableColumn fx:id="colEstado" editable="false" prefWidth="113.0" resizable="false" text="Estado" />
-                        <TableColumn fx:id="colPrecio" editable="false" prefWidth="132.0" resizable="false" text="Precio" />
-                        <TableColumn fx:id="colDuenio" editable="false" prefWidth="170.0" resizable="false" text="Dueño" />
+                      <TableColumn fx:id="colTipo" editable="false" prefWidth="134.40003204345703" text="TIpo Propiedad" />
+                      <TableColumn fx:id="colEstado" editable="false" prefWidth="163.20001220703125" text="Estado" />
+                        <TableColumn fx:id="colDireccion" editable="false" prefWidth="134.4000244140625" text="Direccion" />
+                        <TableColumn fx:id="colDuenio" editable="false" prefWidth="90.39993286132812" text="Dueño" />
+                        <TableColumn fx:id="colInquilino" editable="false" prefWidth="132.0" text="Inquilino" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="btnModificarProp" layoutX="150.0" layoutY="500.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="183.0" style="-fx-background-color: #1363a8;" text="Modificar Propiedad" />
-                  <Button fx:id="btnBorrarProp" layoutX="451.0" layoutY="500.0" mnemonicParsing="false" onAction="#borrarPropiedad" prefHeight="40.0" prefWidth="183.0" style="-fx-background-color: red;" text="Borrar Propiedad" />
+                  <Button fx:id="btnVerModificarProp" layoutX="147.0" layoutY="500.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="204.0" style="-fx-background-color: #1363a8;" text="Ver y Modificar Propiedad" />
+                  <Button fx:id="btnBorrarProp" layoutX="462.0" layoutY="500.0" mnemonicParsing="false" onAction="#borrarPropiedad" prefHeight="40.0" prefWidth="183.0" style="-fx-background-color: red;" text="Borrar Propiedad" />
                   <TextField fx:id="tfBuscador" layoutX="393.0" layoutY="15.0" prefHeight="40.0" prefWidth="149.0" />
                   <ImageView fitHeight="41.0" fitWidth="42.0" layoutX="554.0" layoutY="14.0" onMouseClicked="#buscarPropiedad" pickOnBounds="true" preserveRatio="true">
                      <image>

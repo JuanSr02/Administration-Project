@@ -26,7 +26,7 @@ public class TestGenericDao {
             casa.setEstado("Disponible");
             casa.setFotos(List.of(new String[]{"/rutas/foto1.jpg", "/rutas/foto2.jpg"}));
             casa.setNotas_servicios_comodidades("Propiedad en excelente estado.");
-            PersonaDAO p = new PersonaDAO(); p.setID(2);
+            PersonaDAO p = new PersonaDAO(); p.setID(1);
             casa.setDuenio(p); // Supongamos que el ID del dueño es 1
 
             // Campos específicos de la Casa
@@ -42,7 +42,7 @@ public class TestGenericDao {
             System.out.println("Casa creada con éxito. ID: " + casa.getID());
 
             //2. Comprador para la casa
-            int compradorID = 2; // Suponemos que este ID ya existe en la BD
+            int compradorID = 1; // Suponemos que este ID ya existe en la BD
             PersonaDAO comprador = p2.read(compradorID);
 
             if (comprador == null) {

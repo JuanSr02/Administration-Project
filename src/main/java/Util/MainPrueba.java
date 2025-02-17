@@ -8,7 +8,7 @@ public class MainPrueba {
         GenericDAO<PersonaDAO> PersonaDAODAO = new GenericDAO<>(PersonaDAO.class);
 
         // Crear
-        int id = 2;
+        int id = 1;
         PersonaDAO PersonaDAO = new PersonaDAO();
         PersonaDAO.setNombreCompleto("Juan Pérez");
         PersonaDAO.setDNI_CUIT_CUIL("20304050607");
