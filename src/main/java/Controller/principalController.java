@@ -47,7 +47,7 @@ public class principalController {
     private TableColumn<PropiedadDAO, String> colInquilino;
     private final GenericDAO<PropiedadDAO> propiedadDAO = new GenericDAO<>(PropiedadDAO.class);
     @FXML
-    private Button btnModificarProp;
+    private Button btnVerModificarProp;
     @FXML
     private Button btnBorrarProp;
     @FXML
@@ -60,8 +60,6 @@ public class principalController {
     private Label lblImagenesSeleccionadas;
     @FXML
     private Button btnSeleccionarImagen, btnGuardar;
-    @FXML
-    private Button btnVerModificarProp;
     private final GenericDAO<PersonaDAO> personaDAO = new GenericDAO<>(PersonaDAO.class);
     private List<String> rutaImagenesSeleccionadas = null; // Guardará la ruta del archivo seleccionado
 
@@ -92,18 +90,18 @@ public class principalController {
 
         cargarDatos();
         // Ocultar los botones al iniciar
-        btnModificarProp.setVisible(false);
+        btnVerModificarProp.setVisible(false);
         btnBorrarProp.setVisible(false);
 
         // Listener para detectar selección en la tabla
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 // Si hay una propiedad seleccionada, mostrar los botones
-                btnModificarProp.setVisible(true);
+                btnVerModificarProp.setVisible(true);
                 btnBorrarProp.setVisible(true);
             } else {
                 // Si no hay selección, ocultar los botones
-                btnModificarProp.setVisible(false);
+                btnVerModificarProp.setVisible(false);
                 btnBorrarProp.setVisible(false);
             }
         });
@@ -273,7 +271,7 @@ public class principalController {
                 cargarDatos();
 
                 // Ocultar botones
-                btnModificarProp.setVisible(false);
+                btnVerModificarProp.setVisible(false);
                 btnBorrarProp.setVisible(false);
 
                 mostrarAlerta("Éxito", "Propiedad eliminada correctamente.");
@@ -318,6 +316,9 @@ public class principalController {
         }
 
         tableView.setItems(propiedadesFiltradas);
+        if(propiedadesFiltradas.isEmpty()){
+            mostrarAlerta("Búsqueda finalizada","No hay propiedades cargadas que coincidan con: " + "\"" + busqueda + "\"");
+        }
     }
 }
 
