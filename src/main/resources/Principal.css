@@ -130,4 +130,12 @@
     -fx-padding: 5px;
 }
 
+.titulo-campo {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1363a8; /* Azul oscuro */
+    -fx-padding: 5px;
+}
+
+
 
