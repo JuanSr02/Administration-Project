@@ -124,15 +124,15 @@
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="tfPrecio" alignment="CENTER_RIGHT" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <TextField fx:id="tfPrecio" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="tfEstado" alignment="CENTER_RIGHT" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <TextField fx:id="tfEstado" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="tfDuenio" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <TextField fx:id="tfNombreDuenio" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin></TextField>
@@ -145,61 +145,65 @@
                            <padding>
                               <Insets right="7.0" />
                            </padding>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
                         </Label>
                         <Label layoutX="10.0" layoutY="161.0" styleClass="titulo-campo" text="DNI Dueño *" GridPane.rowIndex="5" />
-                        <TextField fx:id="tfDuenio1" layoutX="210.0" layoutY="166.0" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <TextField fx:id="tfDNIDuenio" layoutX="210.0" layoutY="166.0" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <Label styleClass="titulo-campo" text="Celular Dueño" GridPane.rowIndex="6" />
-                        <TextField fx:id="tfDuenio11" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <TextField fx:id="tfCelularDuenio" maxHeight="20.0" maxWidth="240.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <Label styleClass="titulo-campo" text="Nombre Inquilino" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfDuenio2" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <TextField fx:id="tfDNIInquilino" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <Label styleClass="titulo-campo" text="DNI Inquilino" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="tfDuenio12" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <TextField fx:id="tfNombreInquilino" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <Label styleClass="titulo-campo" text="Celular Inquilino" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="tfDuenio111" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <TextField fx:id="tfCelularInquilino" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField maxHeight="20.0" maxWidth="270.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <TextField fx:id="tfNotas" maxHeight="20.0" maxWidth="270.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="312.0" text="En notas irian los servicios, comodidades/amenities que la propiedad tiene." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="53.0" prefWidth="312.0" text="En notas irian los servicios, comodidades/amenities que la propiedad tiene." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="133.0" styleClass="titulo-campo" text="Ambientes *" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfDuenio121" layoutX="574.0" layoutY="138.0" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                        <Label layoutX="10.0" layoutY="133.0" styleClass="titulo-campo" text="Ambientes" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfAmbientes" layoutX="574.0" layoutY="138.0" maxHeight="20.0" maxWidth="180.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <Label layoutX="426.0" layoutY="16.0" styleClass="titulo-campo" text="Moneda" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cbTipoPropiedad1" layoutX="176.0" layoutY="21.0" prefHeight="20.0" prefWidth="180.0" promptText="Elija la moneda" visibleRowCount="4" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <ComboBox fx:id="cbMoneda" layoutX="176.0" layoutY="21.0" prefHeight="20.0" prefWidth="180.0" promptText="Elija la moneda" visibleRowCount="4" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
-                                 <String fx:value="Casa" />
-                                 <String fx:value="Departamento" />
-                                 <String fx:value="Local Comercial" />
-                                 <String fx:value="Terreno/Lote" />
+                                 <String fx:value="ARS" />
+                                 <String fx:value="USD" />
                               </FXCollections>
                            </items>
                            <GridPane.margin>
@@ -207,25 +211,28 @@
                            </GridPane.margin>
                         </ComboBox>
                         <Label layoutX="426.0" layoutY="59.0" styleClass="titulo-campo" text="M2 Cubiertos" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfDuenio1211" layoutX="574.0" layoutY="21.0" maxHeight="20.0" maxWidth="30.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                        <TextField fx:id="tfM2Cubiertos" layoutX="574.0" layoutY="21.0" maxHeight="20.0" maxWidth="40.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                            <GridPane.margin>
-                              <Insets left="115.0" right="10.0" />
+                              <Insets left="110.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <Label layoutX="426.0" layoutY="96.0" styleClass="titulo-campo" text="M2 Descubiertos" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <GridPane.margin>
-                              <Insets right="55.0" />
+                              <Insets right="50.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="tfDuenio12111" layoutX="541.0" layoutY="100.0" maxHeight="20.0" maxWidth="30.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <TextField fx:id="tfM2Descubiertos" layoutX="541.0" layoutY="100.0" maxHeight="20.0" maxWidth="40.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <GridPane.margin>
-                              <Insets right="20.0" />
+                              <Insets right="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <Label layoutX="441.0" layoutY="280.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="312.0" text="No es necesario que todos los campos esten llenos, solos los que tienen &quot;*&quot;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets bottom="20.0" left="15.0" right="10.0" />
                            </GridPane.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Label>
                      </children>
                   </GridPane>

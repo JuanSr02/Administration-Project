@@ -64,5 +64,18 @@ public class GenericDAO<T> {
             em.close();
         }
     }
+
+    public long contarPropiedadesPorPersona(int personaID) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery(
+                            "SELECT COUNT(*) FROM " + entityClass.getSimpleName() + " AS p WHERE p.duenio = :personaID OR p.inquilino = :personaID",
+                            Long.class
+                    ).setParameter("personaID", personaID)
+                    .getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
 }
 

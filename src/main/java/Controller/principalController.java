@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.List;
 
 public class principalController {
     @FXML
-    private TabPane tabPane;
+    private Tab tabViewProperties;
     @FXML
     private TableView<PropiedadDAO> tableView;
     @FXML
@@ -51,11 +52,9 @@ public class principalController {
     @FXML
     private Button btnBorrarProp;
     @FXML
-    private ComboBox<String> cbTipoPropiedad;
+    private ComboBox<String> cbTipoPropiedad,cbMoneda;
     @FXML
-    private TextField tfDireccion, tfPrecio, tfEstado, tfDuenio, tfBuscador;
-    @FXML
-    private TextArea taNotas;
+    private TextField tfDireccion, tfPrecio, tfEstado, tfNombreDuenio,tfDNIDuenio,tfCelularDuenio,tfAmbientes,tfM2Cubiertos,tfM2Descubiertos,tfNombreInquilino,tfDNIInquilino,tfCelularInquilino,tfNotas, tfBuscador;
     @FXML
     private Label lblImagenesSeleccionadas;
     @FXML
@@ -105,6 +104,13 @@ public class principalController {
                 btnBorrarProp.setVisible(false);
             }
         });
+
+        tabViewProperties.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) { // Si la pestaña se seleccionó
+                cargarDatos(); // Metodo que recarga la tabla
+            }
+        });
+
     }
 
     private String obtenerTipoPropiedad(PropiedadDAO propiedad) {
@@ -176,30 +182,74 @@ public class principalController {
     @FXML
     public void guardarPropiedad() {
         try {
+            // Obtener valores de los campos
             String tipo = cbTipoPropiedad.getValue();
-            String direccion = tfDireccion.getText();
-            double precio = Double.parseDouble(tfPrecio.getText());
-            String estado = tfEstado.getText();
-            String notas = taNotas.getText();
-            String duenioNombre = tfDuenio.getText();
+            String direccion = tfDireccion.getText().trim();
+            String precioTexto = tfPrecio.getText().trim();
+            String estado = tfEstado.getText().trim();
+            String notas = tfNotas.getText().trim();
+            String nombreDuenio  = tfNombreDuenio.getText().trim();
+            String DNIDuenioTexto  = tfDNIDuenio.getText().trim();
+            String CelularDuenioTexto  = tfCelularDuenio.getText().trim();
+            String ambientes  = tfAmbientes.getText().trim();
+            String moneda  = cbMoneda.getValue();
+            String M2CubiertosTexto  = tfM2Cubiertos.getText().trim();
+            String M2DescubiertosTexto  = tfM2Descubiertos.getText().trim();
+            String nombreInquilino  = tfNombreInquilino.getText().trim();
+            String DNIInquilinoTexto  = tfDNIInquilino.getText().trim();
+            String CelularInquilinoTexto  = tfCelularInquilino.getText().trim();
 
-            if (direccion.isEmpty() || duenioNombre.isEmpty()) {
-                mostrarAlerta("Error", "La dirección y el dueño son obligatorios.");
+            // Validar campos obligatorios
+            if (tipo == null || direccion.isEmpty() || precioTexto.isEmpty() || estado.isEmpty() || nombreDuenio.isEmpty() || DNIDuenioTexto.isEmpty()) {
+                mostrarAlerta("Error", "Todos los campos obligatorios (*) deben completarse.");
                 return;
             }
 
+            // Validar formato numérico del precio y metros cuadrados
+            double precio;
+            int M2Cubiertos=0, M2Descubiertos=0;
+            try {
+                precio = Double.parseDouble(precioTexto);
+                if(!M2CubiertosTexto.isEmpty() && !M2DescubiertosTexto.isEmpty()){
+                    M2Cubiertos = Integer.parseInt(M2CubiertosTexto);
+                    M2Descubiertos = Integer.parseInt(M2DescubiertosTexto);
+                }
+            } catch (NumberFormatException e) {
+                mostrarAlerta("Error", "El precio y los M2s (pueden estar vacios los m2s) deben ser un número válido.");
+                return;
+            }
+
+            // Buscar o crear dueño
             PersonaDAO duenio = personaDAO.readAll().stream()
-                    .filter(p -> p.getNombreCompleto().equalsIgnoreCase(duenioNombre))
+                    .filter(p -> p.getNombreCompleto().equalsIgnoreCase(nombreDuenio))
                     .findFirst()
-                    .orElse(null);
+                    .orElseGet(() -> {
+                        PersonaDAO nuevaPersona = new PersonaDAO();
+                        nuevaPersona.setNombreCompleto(nombreDuenio);
+                        nuevaPersona.setDNI_CUIT_CUIL(DNIDuenioTexto);
+                        nuevaPersona.setTelefono(CelularDuenioTexto);
+                        personaDAO.create(nuevaPersona);
+                        return nuevaPersona;
+                    });
 
-            if (duenio == null) {
-                mostrarAlerta("Error", "El dueño no existe en la base de datos.");
-                return;
+            // Buscar o crear inquilino si está presente
+            PersonaDAO inquilino = null;
+            if (!nombreInquilino.isEmpty()) {
+                inquilino = personaDAO.readAll().stream()
+                        .filter(p -> p.getNombreCompleto().equalsIgnoreCase(nombreInquilino))
+                        .findFirst()
+                        .orElseGet(() -> {
+                            PersonaDAO nuevaPersona = new PersonaDAO();
+                            nuevaPersona.setNombreCompleto(nombreInquilino);
+                            nuevaPersona.setDNI_CUIT_CUIL(DNIInquilinoTexto);
+                            nuevaPersona.setTelefono(CelularInquilinoTexto);
+                            personaDAO.create(nuevaPersona);
+                            return nuevaPersona;
+                        });
             }
 
+            // Crear instancia de la propiedad según el tipo
             PropiedadDAO nuevaPropiedad;
-
             switch (tipo) {
                 case "Casa":
                     nuevaPropiedad = new CasaDAO();
@@ -218,31 +268,50 @@ public class principalController {
                     return;
             }
 
+            // Asignar valores a la propiedad (GPT EXPLICITAMENTE)
             nuevaPropiedad.setDireccion(direccion);
             nuevaPropiedad.setPrecio_Venta_Alquiler(precio);
             nuevaPropiedad.setEstado(estado);
             nuevaPropiedad.setNotas_servicios_comodidades(notas);
             nuevaPropiedad.setDuenio(duenio);
-            nuevaPropiedad.setFotos(rutaImagenesSeleccionadas); // Guardamos la ruta de la imagen
+            nuevaPropiedad.setInquilino(inquilino);
+            nuevaPropiedad.setFotos(rutaImagenesSeleccionadas);
+            nuevaPropiedad.setMoneda(moneda);
+            nuevaPropiedad.setM2Cubiertos(M2Cubiertos);
+            nuevaPropiedad.setM2Descubiertos(M2Descubiertos);
+            nuevaPropiedad.setAmbientes(ambientes);
 
+            // Guardar en la base de datos
             propiedadDAO.create(nuevaPropiedad);
             mostrarAlerta("Éxito", "Propiedad guardada correctamente.");
 
-            // Limpiar los campos para agregar otra propiedad
+            // Limpiar los campos
             tfDireccion.clear();
             tfPrecio.clear();
             cbTipoPropiedad.setValue(null);
             tfEstado.clear();
-            tfDuenio.clear();
-            taNotas.clear();
-            if (rutaImagenesSeleccionadas != null)
+            tfNombreDuenio.clear();
+            tfDNIDuenio.clear();
+            tfCelularDuenio.clear();
+            tfNombreInquilino.clear();
+            tfDNIInquilino.clear();
+            tfCelularInquilino.clear();
+            tfM2Cubiertos.clear();
+            tfM2Descubiertos.clear();
+            tfAmbientes.clear();
+            cbMoneda.setValue(null);
+            tfNotas.clear();
+            if (rutaImagenesSeleccionadas != null) {
                 rutaImagenesSeleccionadas.clear();
-            lblImagenesSeleccionadas.setText("Ninguna imagen seleccionada");// Si hay una lista de fotos, limpiarla también
+            }
+            lblImagenesSeleccionadas.setText("Ninguna imagen seleccionada");
 
         } catch (Exception e) {
-            mostrarAlerta("Error", "Datos inválidos: " + e.getMessage());
+            mostrarAlerta("Error", "Ocurrió un error inesperado: " + e.getMessage());
         }
     }
+
+
 
     @FXML
     public void borrarPropiedad() {
@@ -256,16 +325,32 @@ public class principalController {
 
         // Crear la alerta de confirmación
         Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        String tipo = obtenerTipoPropiedad(propiedadSeleccionada);
         confirmacion.setTitle("Confirmar Eliminación");
         confirmacion.setHeaderText("¿Está seguro de que desea eliminar esta propiedad?");
-        confirmacion.setContentText("Dirección: " + propiedadSeleccionada.getDireccion() +
-                "\nDueño: " + (propiedadSeleccionada.getDuenio() != null ? propiedadSeleccionada.getDuenio().getNombreCompleto() : "Sin dueño"));
+        confirmacion.setContentText("Tipo de Propiedad: " + tipo + "\nDirección: " + propiedadSeleccionada.getDireccion() +
+                "\nDueño: " + propiedadSeleccionada.getDuenio().getNombreCompleto() +
+                "\nInquilino: " + (propiedadSeleccionada.getInquilino() != null ? propiedadSeleccionada.getInquilino().getNombreCompleto() : "Sin Inquilino"));
 
         // Mostrar la alerta y esperar la respuesta del usuario
         confirmacion.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                // Guardar referencias del dueño e inquilino antes de eliminar la propiedad
+                PersonaDAO duenio = propiedadSeleccionada.getDuenio();
+                PersonaDAO inquilino = propiedadSeleccionada.getInquilino();
+
                 // Eliminar la propiedad de la base de datos
                 propiedadDAO.delete(propiedadSeleccionada.getID());
+
+                // Verificar si el dueño no tiene más propiedades y eliminarlo si es necesario
+                if (propiedadDAO.contarPropiedadesPorPersona(duenio.getID()) == 0) {
+                    personaDAO.delete(duenio.getID());
+                }
+
+                // Verificar si el inquilino no tiene más propiedades y eliminarlo si es necesario
+                if (inquilino != null && propiedadDAO.contarPropiedadesPorPersona(inquilino.getID()) == 0) {
+                    personaDAO.delete(inquilino.getID());
+                }
 
                 // Actualizar la tabla
                 cargarDatos();
@@ -278,6 +363,7 @@ public class principalController {
             }
         });
     }
+
 
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

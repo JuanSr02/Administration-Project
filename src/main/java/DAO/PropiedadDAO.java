@@ -171,5 +171,9 @@ public class PropiedadDAO{
                 ", inquilino=" + inquilino +
                 '}';
     }
+
+
+
+
 }
 
