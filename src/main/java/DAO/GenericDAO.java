@@ -1,6 +1,9 @@
 package DAO;
 
 import jakarta.persistence.*;
+import org.hibernate.Session;
+import org.hibernate.annotations.processing.Find;
+
 import java.util.List;
 
 public class GenericDAO<T> {
@@ -64,14 +67,11 @@ public class GenericDAO<T> {
             em.close();
         }
     }
-
+    @Find
     public long contarPropiedadesPorPersona(int personaID) {
         EntityManager em = emf.createEntityManager();
         try {
-            return em.createQuery(
-                            "SELECT COUNT(*) FROM " + entityClass.getSimpleName() + " AS p WHERE p.duenio = :personaID OR p.inquilino = :personaID",
-                            Long.class
-                    ).setParameter("personaID", personaID)
+            return (long) em.createNativeQuery("SELECT COUNT(*) FROM propiedad AS p WHERE p.duenio = :personaID OR p.inquilino = :personaID").setParameter("personaID", personaID)
                     .getSingleResult();
         } finally {
             em.close();
