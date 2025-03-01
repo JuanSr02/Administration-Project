@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import DAO.*;
 import javafx.fxml.FXML;
@@ -33,7 +34,9 @@ import java.util.List;
 
 public class principalController {
     @FXML
-    private Tab tabViewProperties;
+    private TabPane tabPane;
+    @FXML
+    private Tab tabViewProperties,tabModifyProperty;
     @FXML
     private TableView<PropiedadDAO> tableView;
     @FXML
@@ -48,17 +51,16 @@ public class principalController {
     private TableColumn<PropiedadDAO, String> colInquilino;
     private final GenericDAO<PropiedadDAO> propiedadDAO = new GenericDAO<>(PropiedadDAO.class);
     @FXML
-    private Button btnVerModificarProp;
+    private ComboBox<String> cbTipoPropiedad,cbMoneda,cbMonedaVer;
     @FXML
-    private Button btnBorrarProp;
+    private TextField tfDireccion, tfPrecio, tfEstado, tfNombreDuenio,tfDNIDuenio,tfCelularDuenio,tfAmbientes,tfM2Cubiertos,tfM2Descubiertos,tfNombreInquilino,tfDNIInquilino,tfCelularInquilino,tfNotas, tfBuscador,tfPrecioVer,tfEstadoVer,tfNombreDuenioVer,tfDNIDuenioVer,tfCelularDuenioVer,tfNombreInquilinoVer,tfDNIInquilinoVer,tfCelularInquilinoVer,tfNotasVer;
     @FXML
-    private ComboBox<String> cbTipoPropiedad,cbMoneda;
+    private Label lblImagenesSeleccionadas,lblImagenesSeleccionadasVer,lblPropiedadSeleccionada;
     @FXML
-    private TextField tfDireccion, tfPrecio, tfEstado, tfNombreDuenio,tfDNIDuenio,tfCelularDuenio,tfAmbientes,tfM2Cubiertos,tfM2Descubiertos,tfNombreInquilino,tfDNIInquilino,tfCelularInquilino,tfNotas, tfBuscador;
+    private Button btnSeleccionarImagen,btnSeleccionarImagenVer,btnActualizarPropiedad,btnVerModificarProp,btnBorrarProp;
     @FXML
-    private Label lblImagenesSeleccionadas;
+    private GridPane gridPaneVer;
     @FXML
-    private Button btnSeleccionarImagen, btnGuardar;
     private final GenericDAO<PersonaDAO> personaDAO = new GenericDAO<>(PersonaDAO.class);
     private List<String> rutaImagenesSeleccionadas = null; // Guardará la ruta del archivo seleccionado
 
@@ -91,6 +93,7 @@ public class principalController {
         // Ocultar los botones al iniciar
         btnVerModificarProp.setVisible(false);
         btnBorrarProp.setVisible(false);
+        gridPaneVer.setVisible(false);
 
         // Listener para detectar selección en la tabla
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -137,6 +140,7 @@ public class principalController {
 
     @FXML
     public void seleccionarImagenes() {
+        int i=0;
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Imágenes");
         fileChooser.getExtensionFilters().addAll(
@@ -156,7 +160,8 @@ public class principalController {
 
                 for (File file : archivosSeleccionados) {
                     // Generar un nombre único
-                    String nombreArchivo = System.currentTimeMillis() + "_" + file.getName();
+                    i++;
+                    String nombreArchivo = tfDireccion.getText() + "_" + i;
                     Path destino = directorioDestino.resolve(nombreArchivo);
 
                     // Copiar el archivo
@@ -171,6 +176,8 @@ public class principalController {
 
                 // Mostrar la cantidad de imágenes seleccionadas en la UI
                 lblImagenesSeleccionadas.setText("Imágenes seleccionadas: " + rutasGuardadas.size());
+                lblImagenesSeleccionadasVer.setText("Imágenes seleccionadas: " + rutasGuardadas.size());
+
 
             } catch (IOException e) {
                 mostrarAlerta("Error", "No se pudieron copiar las imágenes: " + e.getMessage());
@@ -406,6 +413,41 @@ public class principalController {
             mostrarAlerta("Búsqueda finalizada","No hay propiedades cargadas que coincidan con: " + "\"" + busqueda + "\"");
         }
     }
+
+    @FXML
+    public void VerPropiedadDetallada() {
+        // Obtener la propiedad seleccionada de la tabla
+        PropiedadDAO propiedadSeleccionada = tableView.getSelectionModel().getSelectedItem();
+        lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
+        gridPaneVer.setVisible(true);
+        lblPropiedadSeleccionada.setVisible(false);
+        if (propiedadSeleccionada == null) {
+            mostrarAlerta("Advertencia", "Debe seleccionar una propiedad para ver.");
+            return;
+        }
+
+        // Cambiar al tab de modificar propiedad
+        tabPane.getSelectionModel().select(tabModifyProperty);
+        tfPrecioVer.setText(String.valueOf(propiedadSeleccionada.getPrecio_Venta_Alquiler()));
+        tfEstadoVer.setText(propiedadSeleccionada.getEstado());
+        tfNombreDuenioVer.setText(propiedadSeleccionada.getDuenio().getNombreCompleto());
+        tfDNIDuenioVer.setText(propiedadSeleccionada.getDuenio().getDNI_CUIT_CUIL());
+        tfCelularDuenioVer.setText(propiedadSeleccionada.getDuenio().getTelefono());
+        cbMonedaVer.setValue(propiedadSeleccionada.getMoneda());
+        if(propiedadSeleccionada.getInquilino() != null) {
+            tfNombreInquilinoVer.setText(propiedadSeleccionada.getInquilino().getNombreCompleto());
+            tfDNIInquilinoVer.setText(propiedadSeleccionada.getInquilino().getDNI_CUIT_CUIL());
+            tfCelularInquilinoVer.setText(propiedadSeleccionada.getInquilino().getTelefono());
+        }
+        tfNotasVer.setText(propiedadSeleccionada.getNotas_servicios_comodidades());
+    }
+
+
+    @FXML
+    public void modificarPropiedad(){
+    // TODO
+    }
+
 }
 
 

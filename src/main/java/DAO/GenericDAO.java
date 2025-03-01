@@ -67,7 +67,7 @@ public class GenericDAO<T> {
             em.close();
         }
     }
-    @Find
+
     public long contarPropiedadesPorPersona(int personaID) {
         EntityManager em = emf.createEntityManager();
         try {
