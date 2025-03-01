@@ -1,6 +1,8 @@
 package Controller;
 
 import DAO.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +19,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,7 +38,7 @@ public class principalController {
     @FXML
     private TabPane tabPane;
     @FXML
-    private Tab tabViewProperties,tabModifyProperty;
+    private Tab tabViewProperties, tabModifyProperty;
     @FXML
     private TableView<PropiedadDAO> tableView;
     @FXML
@@ -51,17 +53,20 @@ public class principalController {
     private TableColumn<PropiedadDAO, String> colInquilino;
     private final GenericDAO<PropiedadDAO> propiedadDAO = new GenericDAO<>(PropiedadDAO.class);
     @FXML
-    private ComboBox<String> cbTipoPropiedad,cbMoneda,cbMonedaVer;
+    private ComboBox<String> cbTipoPropiedad, cbMoneda, cbMonedaVer;
     @FXML
-    private TextField tfDireccion, tfPrecio, tfEstado, tfNombreDuenio,tfDNIDuenio,tfCelularDuenio,tfAmbientes,tfM2Cubiertos,tfM2Descubiertos,tfNombreInquilino,tfDNIInquilino,tfCelularInquilino,tfNotas, tfBuscador,tfPrecioVer,tfEstadoVer,tfNombreDuenioVer,tfDNIDuenioVer,tfCelularDuenioVer,tfNombreInquilinoVer,tfDNIInquilinoVer,tfCelularInquilinoVer,tfNotasVer;
+    private TextField tfDireccion, tfPrecio, tfEstado, tfNombreDuenio, tfDNIDuenio, tfCelularDuenio, tfAmbientes, tfM2Cubiertos, tfM2Descubiertos, tfNombreInquilino, tfDNIInquilino, tfCelularInquilino, tfNotas, tfBuscador, tfPrecioVer, tfEstadoVer, tfNombreDuenioVer, tfDNIDuenioVer, tfCelularDuenioVer, tfNombreInquilinoVer, tfDNIInquilinoVer, tfCelularInquilinoVer, tfNotasVer;
     @FXML
-    private Label lblImagenesSeleccionadas,lblImagenesSeleccionadasVer,lblPropiedadSeleccionada;
+    private Label lblImagenesSeleccionadas, lblImagenesSeleccionadasVer, lblPropiedadSeleccionada;
     @FXML
-    private Button btnSeleccionarImagen,btnSeleccionarImagenVer,btnActualizarPropiedad,btnVerModificarProp,btnBorrarProp;
+    private Button btnSeleccionarImagen, btnSeleccionarImagenVer, btnActualizarPropiedad, btnVerModificarProp, btnBorrarProp;
     @FXML
     private GridPane gridPaneVer;
     @FXML
     private final GenericDAO<PersonaDAO> personaDAO = new GenericDAO<>(PersonaDAO.class);
+    @FXML
+    private ImageView VerImg1,VerImg2,VerImg3;
+
     private List<String> rutaImagenesSeleccionadas = null; // Guardará la ruta del archivo seleccionado
 
     @FXML
@@ -139,15 +144,27 @@ public class principalController {
     }
 
     @FXML
-    public void seleccionarImagenes() {
-        int i=0;
+    public void ImagenAdd() {
+        seleccionarImagenes(1);
+    }
+
+    @FXML
+    public void ImagenVer() {
+        seleccionarImagenes(0);
+    }
+
+    public void seleccionarImagenes(int token) {
+        int i = 0;
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Imágenes");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.jpeg")
         );
-
-        List<File> archivosSeleccionados = fileChooser.showOpenMultipleDialog(btnSeleccionarImagen.getScene().getWindow());
+        List<File> archivosSeleccionados = null;
+        if (token == 1)
+            archivosSeleccionados = fileChooser.showOpenMultipleDialog(btnSeleccionarImagen.getScene().getWindow());
+        else
+            archivosSeleccionados = fileChooser.showOpenMultipleDialog(btnSeleccionarImagenVer.getScene().getWindow());
 
         if (archivosSeleccionados != null) {
             List<String> rutasGuardadas = new ArrayList<>();
@@ -168,17 +185,17 @@ public class principalController {
                     Files.copy(file.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
 
                     // Agregar la ruta relativa a la lista
-                    rutasGuardadas.add("images/properties/" + nombreArchivo);
+                    rutasGuardadas.add("src/main/resources/images/properties/" + nombreArchivo);
                 }
 
                 // Guardamos la lista de rutas en la propiedad
                 rutaImagenesSeleccionadas = rutasGuardadas;
 
                 // Mostrar la cantidad de imágenes seleccionadas en la UI
-                lblImagenesSeleccionadas.setText("Imágenes seleccionadas: " + rutasGuardadas.size());
-                lblImagenesSeleccionadasVer.setText("Imágenes seleccionadas: " + rutasGuardadas.size());
-
-
+                if (token == 1)
+                    lblImagenesSeleccionadas.setText("Imágenes seleccionadas: " + rutasGuardadas.size());
+                else
+                    lblImagenesSeleccionadasVer.setText("Imágenes seleccionadas: " + rutasGuardadas.size());
             } catch (IOException e) {
                 mostrarAlerta("Error", "No se pudieron copiar las imágenes: " + e.getMessage());
             }
@@ -195,16 +212,16 @@ public class principalController {
             String precioTexto = tfPrecio.getText().trim();
             String estado = tfEstado.getText().trim();
             String notas = tfNotas.getText().trim();
-            String nombreDuenio  = tfNombreDuenio.getText().trim();
-            String DNIDuenioTexto  = tfDNIDuenio.getText().trim();
-            String CelularDuenioTexto  = tfCelularDuenio.getText().trim();
-            String ambientes  = tfAmbientes.getText().trim();
-            String moneda  = cbMoneda.getValue();
-            String M2CubiertosTexto  = tfM2Cubiertos.getText().trim();
-            String M2DescubiertosTexto  = tfM2Descubiertos.getText().trim();
-            String nombreInquilino  = tfNombreInquilino.getText().trim();
-            String DNIInquilinoTexto  = tfDNIInquilino.getText().trim();
-            String CelularInquilinoTexto  = tfCelularInquilino.getText().trim();
+            String nombreDuenio = tfNombreDuenio.getText().trim();
+            String DNIDuenioTexto = tfDNIDuenio.getText().trim();
+            String CelularDuenioTexto = tfCelularDuenio.getText().trim();
+            String ambientes = tfAmbientes.getText().trim();
+            String moneda = cbMoneda.getValue();
+            String M2CubiertosTexto = tfM2Cubiertos.getText().trim();
+            String M2DescubiertosTexto = tfM2Descubiertos.getText().trim();
+            String nombreInquilino = tfNombreInquilino.getText().trim();
+            String DNIInquilinoTexto = tfDNIInquilino.getText().trim();
+            String CelularInquilinoTexto = tfCelularInquilino.getText().trim();
 
             // Validar campos obligatorios
             if (tipo == null || direccion.isEmpty() || precioTexto.isEmpty() || estado.isEmpty() || nombreDuenio.isEmpty() || DNIDuenioTexto.isEmpty()) {
@@ -214,10 +231,10 @@ public class principalController {
 
             // Validar formato numérico del precio y metros cuadrados
             double precio;
-            int M2Cubiertos=0, M2Descubiertos=0;
+            int M2Cubiertos = 0, M2Descubiertos = 0;
             try {
                 precio = Double.parseDouble(precioTexto);
-                if(!M2CubiertosTexto.isEmpty() && !M2DescubiertosTexto.isEmpty()){
+                if (!M2CubiertosTexto.isEmpty() && !M2DescubiertosTexto.isEmpty()) {
                     M2Cubiertos = Integer.parseInt(M2CubiertosTexto);
                     M2Descubiertos = Integer.parseInt(M2DescubiertosTexto);
                 }
@@ -319,7 +336,6 @@ public class principalController {
     }
 
 
-
     @FXML
     public void borrarPropiedad() {
         // Obtener la propiedad seleccionada
@@ -409,18 +425,22 @@ public class principalController {
         }
 
         tableView.setItems(propiedadesFiltradas);
-        if(propiedadesFiltradas.isEmpty()){
-            mostrarAlerta("Búsqueda finalizada","No hay propiedades cargadas que coincidan con: " + "\"" + busqueda + "\"");
+        if (propiedadesFiltradas.isEmpty()) {
+            mostrarAlerta("Búsqueda finalizada", "No hay propiedades cargadas que coincidan con: " + "\"" + busqueda + "\"");
         }
     }
 
+
+
     @FXML
-    public void VerPropiedadDetallada() {
+    public void VerPropiedadDetallada() throws MalformedURLException {
         // Obtener la propiedad seleccionada de la tabla
         PropiedadDAO propiedadSeleccionada = tableView.getSelectionModel().getSelectedItem();
+        propiedadSeleccionada = propiedadDAO.getPropiedadConFotos(propiedadSeleccionada.getID());
         lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
         gridPaneVer.setVisible(true);
         lblPropiedadSeleccionada.setVisible(false);
+
         if (propiedadSeleccionada == null) {
             mostrarAlerta("Advertencia", "Debe seleccionar una propiedad para ver.");
             return;
@@ -434,18 +454,52 @@ public class principalController {
         tfDNIDuenioVer.setText(propiedadSeleccionada.getDuenio().getDNI_CUIT_CUIL());
         tfCelularDuenioVer.setText(propiedadSeleccionada.getDuenio().getTelefono());
         cbMonedaVer.setValue(propiedadSeleccionada.getMoneda());
-        if(propiedadSeleccionada.getInquilino() != null) {
+
+        if (propiedadSeleccionada.getInquilino() != null) {
             tfNombreInquilinoVer.setText(propiedadSeleccionada.getInquilino().getNombreCompleto());
             tfDNIInquilinoVer.setText(propiedadSeleccionada.getInquilino().getDNI_CUIT_CUIL());
             tfCelularInquilinoVer.setText(propiedadSeleccionada.getInquilino().getTelefono());
         }
+
         tfNotasVer.setText(propiedadSeleccionada.getNotas_servicios_comodidades());
+
+
+
+
+        // Cargar imágenes si existen
+        List<String> imagenes = propiedadSeleccionada.getFotos();
+
+        if (imagenes != null && !imagenes.isEmpty()) {
+            // Asignar imágenes a los ImageView (asegurarse de que sean nodos en el FXML)
+            if (imagenes.size() > 0) {
+                VerImg1.setImage(new Image(new File(imagenes.getFirst()).toURI().toURL().toExternalForm()));
+            } else {
+                VerImg1.setImage(null);
+            }
+
+            if (imagenes.size() > 1) {
+                VerImg2.setImage(new Image(new File(imagenes.get(1)).toURI().toURL().toExternalForm()));
+            } else {
+                VerImg2.setImage(null);
+            }
+            if (imagenes.size() > 2) {
+                VerImg3.setImage(new Image(new File(imagenes.get(2)).toURI().toURL().toExternalForm()));
+            } else {
+                VerImg3.setImage(null);
+            }
+        } else {
+            VerImg1.setImage(null);
+            VerImg2.setImage(null);
+            VerImg3.setImage(null);
+        }
     }
 
 
+
+
     @FXML
-    public void modificarPropiedad(){
-    // TODO
+    public void modificarPropiedad() {
+        // TODO
     }
 
 }

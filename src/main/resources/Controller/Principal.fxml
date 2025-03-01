@@ -136,7 +136,7 @@
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin></TextField>
-                        <Button fx:id="btnSeleccionarImagen" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#seleccionarImagenes" prefHeight="41.0" prefWidth="180.0" text="Seleccionar Imagenes" GridPane.halignment="LEFT" GridPane.rowIndex="7">
+                        <Button fx:id="btnSeleccionarImagen" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#ImagenAdd" prefHeight="41.0" prefWidth="180.0" text="Seleccionar Imagenes" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -279,7 +279,7 @@
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Button fx:id="btnSeleccionarImagenVer" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#seleccionarImagenes" prefHeight="41.0" prefWidth="180.0" text="Seleccionar Imagenes" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                        <Button fx:id="btnSeleccionarImagenVer" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#ImagenVer" prefHeight="41.0" prefWidth="180.0" text="Seleccionar Imagenes" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="5.0" />
                            </GridPane.margin>
@@ -342,9 +342,9 @@
                         <Button fx:id="btnActualizarPropiedad" mnemonicParsing="false" onAction="#modificarPropiedad" text="Actualizar Propiedad" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <ImageView fx:id="VerImg1" fitHeight="200.0" fitWidth="230.0" layoutX="30.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="VerImg2" fitHeight="200.0" fitWidth="230.0" layoutX="262.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="VerImg3" fitHeight="200.0" fitWidth="230.0" layoutX="524.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="VerImg1" fitHeight="200.0" fitWidth="230.0" layoutX="38.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="VerImg2" fitHeight="200.0" fitWidth="230.0" layoutX="293.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="VerImg3" fitHeight="200.0" fitWidth="230.0" layoutX="550.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="lblPropiedadSeleccionada" alignment="CENTER" layoutX="30.0" layoutY="14.0" styleClass="titulo-campo" text="No hay propiedad seleccionada." />
                </children>
             </AnchorPane>

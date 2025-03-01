@@ -3,6 +3,8 @@ package DAO;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.annotations.processing.Find;
+import org.hibernate.Hibernate;
+
 
 import java.util.List;
 
@@ -77,5 +79,20 @@ public class GenericDAO<T> {
             em.close();
         }
     }
+
+
+    public PropiedadDAO getPropiedadConFotos(int id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            PropiedadDAO propiedad = em.find(PropiedadDAO.class, id);
+            if (propiedad != null) {
+                Hibernate.initialize(propiedad.getFotos()); // Forzar carga de fotos
+            }
+            return propiedad;
+        } finally {
+            em.close();
+        }
+    }
+
 }
 
