@@ -440,6 +440,9 @@ public class principalController {
         lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
         gridPaneVer.setVisible(true);
         lblPropiedadSeleccionada.setVisible(false);
+        VerImg1.setVisible(true);
+        VerImg2.setVisible(true);
+        VerImg3.setVisible(true);
 
         if (propiedadSeleccionada == null) {
             mostrarAlerta("Advertencia", "Debe seleccionar una propiedad para ver.");
@@ -499,7 +502,72 @@ public class principalController {
 
     @FXML
     public void modificarPropiedad() {
-        // TODO
+        PropiedadDAO propiedadModificada = tableView.getSelectionModel().getSelectedItem();
+        propiedadModificada = propiedadDAO.getPropiedadConFotos(propiedadModificada.getID());
+        lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
+        gridPaneVer.setVisible(false);
+        lblPropiedadSeleccionada.setVisible(true);
+        VerImg1.setVisible(false);
+        VerImg2.setVisible(false);
+        VerImg3.setVisible(false);
+
+        propiedadModificada.setPrecio_Venta_Alquiler(Double.parseDouble(tfPrecioVer.getText()));
+        propiedadModificada.setEstado(tfEstadoVer.getText());
+        propiedadModificada.setMoneda(cbMonedaVer.getValue());
+        propiedadModificada.setNotas_servicios_comodidades(tfNotasVer.getText());
+
+        // Buscar o crear dueño
+        PersonaDAO duenio = personaDAO.readAll().stream()
+                .filter(p -> p.getNombreCompleto().equalsIgnoreCase(tfNombreDuenioVer.getText()))
+                .findFirst()
+                .orElseGet(() -> {
+                    PersonaDAO nuevaPersona = new PersonaDAO();
+                    nuevaPersona.setNombreCompleto(tfNombreDuenioVer.getText());
+                    nuevaPersona.setDNI_CUIT_CUIL(tfDNIDuenioVer.getText());
+                    nuevaPersona.setTelefono(tfCelularDuenioVer.getText());
+                    personaDAO.create(nuevaPersona);
+                    return nuevaPersona;
+                });
+
+        propiedadModificada.setDuenio(duenio);
+        propiedadModificada.getDuenio().setNombreCompleto(tfNombreDuenioVer.getText());
+        propiedadModificada.getDuenio().setDNI_CUIT_CUIL(tfDNIDuenioVer.getText());
+        propiedadModificada.getDuenio().setTelefono(tfCelularDuenioVer.getText());
+        duenio.setNombreCompleto(tfNombreDuenioVer.getText());
+        duenio.setDNI_CUIT_CUIL(tfDNIDuenioVer.getText());
+        duenio.setTelefono(tfCelularDuenioVer.getText());
+
+
+        // Buscar o crear inquilino si está presente
+        PersonaDAO inquilino = null;
+        if (!tfNombreInquilinoVer.getText().isEmpty()) {
+            inquilino = personaDAO.readAll().stream()
+                    .filter(p -> p.getNombreCompleto().equalsIgnoreCase(tfNombreInquilinoVer.getText()))
+                    .findFirst()
+                    .orElseGet(() -> {
+                        PersonaDAO nuevaPersona = new PersonaDAO();
+                        nuevaPersona.setNombreCompleto(tfNombreInquilinoVer.getText());
+                        nuevaPersona.setDNI_CUIT_CUIL(tfDNIInquilinoVer.getText());
+                        nuevaPersona.setTelefono(tfCelularInquilinoVer.getText());
+                        personaDAO.create(nuevaPersona);
+                        return nuevaPersona;
+                    });
+        }
+        if(inquilino!=null){
+            propiedadModificada.setInquilino(inquilino);
+            propiedadModificada.getInquilino().setNombreCompleto(tfNombreInquilinoVer.getText());
+            propiedadModificada.getInquilino().setDNI_CUIT_CUIL(tfDNIInquilinoVer.getText());
+            propiedadModificada.getInquilino().setTelefono(tfCelularInquilinoVer.getText());
+        }
+
+
+        if (rutaImagenesSeleccionadas != null) {
+            propiedadModificada.setFotos(rutaImagenesSeleccionadas);
+        }
+
+        propiedadDAO.update(propiedadModificada);
+        mostrarAlerta("Propiedad Actualizada!","La propiedad con dirección: " + propiedadModificada.getDireccion() + " Fue modificada Correctamente");
+
     }
 
 }
