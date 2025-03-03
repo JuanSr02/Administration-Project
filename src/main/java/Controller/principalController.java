@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -191,11 +192,11 @@ public class principalController {
                     String nombreArchivo;
                     Path destino;
                     if(token==1) {
-                        nombreArchivo = tfDireccion.getText() + "_" + i;
+                        nombreArchivo = tfDireccion.getText() + "-" + i;
                         destino = directorioDestino.resolve(nombreArchivo);
                     }
                     else{
-                        nombreArchivo = lblDireccion.getText() + "_" + i;
+                        nombreArchivo = lblDireccion.getText() + "-" + i;
                         destino = directorioDestino.resolve(nombreArchivo);
                     }
 
@@ -203,7 +204,7 @@ public class principalController {
                     Files.copy(file.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
 
                     // Agregar la ruta relativa a la lista
-                    rutasGuardadas.add("src/main/resources/images/properties/" + nombreArchivo);
+                    rutasGuardadas.add("/images/properties/" + nombreArchivo);
                 }
 
                 // Guardamos la lista de rutas en la propiedad
@@ -380,6 +381,10 @@ public class principalController {
                 PersonaDAO duenio = propiedadSeleccionada.getDuenio();
                 PersonaDAO inquilino = propiedadSeleccionada.getInquilino();
 
+                // Borrar imágenes asociadas a la propiedad
+                PropiedadDAO propFotos = propiedadDAO.getPropiedadConFotos(propiedadSeleccionada.getID());
+                borrarImagenesPropiedad(propFotos.getFotos());
+
                 // Eliminar la propiedad de la base de datos
                 propiedadDAO.delete(propiedadSeleccionada.getID());
 
@@ -397,6 +402,7 @@ public class principalController {
                     personaDAO.delete(inquilino.getID());
                 }
 
+
                 // Actualizar la tabla
                 cargarDatos();
 
@@ -409,6 +415,30 @@ public class principalController {
         });
     }
 
+    /**
+     * Borra las imágenes asociadas a una propiedad en la carpeta resources.
+     * @param rutasImagenes Lista de rutas de las imágenes almacenadas en la BD.
+     */
+    private void borrarImagenesPropiedad(List<String> rutasImagenes) {
+        if (rutasImagenes != null && !rutasImagenes.isEmpty()) {
+            for (String rutaRelativa : rutasImagenes) {
+                try {
+                    File imagen = new File("src/main/resources" + rutaRelativa);
+                    if (imagen.exists() && imagen.isFile()) {
+                        if (imagen.delete()) {
+                            System.out.println("Imagen eliminada: " + imagen.getAbsolutePath());
+                        } else {
+                            System.err.println("No se pudo eliminar la imagen: " + imagen.getAbsolutePath());
+                        }
+                    } else {
+                        System.err.println("Imagen no encontrada: " + imagen.getAbsolutePath());
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al eliminar la imagen " + rutaRelativa + ": " + e.getMessage());
+                }
+            }
+        }
+    }
 
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -455,7 +485,7 @@ public class principalController {
 
 
     @FXML
-    public void VerPropiedadDetallada() throws MalformedURLException {
+    public void VerPropiedadDetallada() throws MalformedURLException, URISyntaxException {
         // Limpiar Formulario
         tfPrecioVer.clear();
         tfEstadoVer.clear();
@@ -508,19 +538,17 @@ public class principalController {
 
         if (imagenes != null && !imagenes.isEmpty()) {
             // Asignar imágenes a los ImageView (asegurarse de que sean nodos en el FXML)
-            if (imagenes.size() > 0) {
-                VerImg1.setImage(new Image(new File(imagenes.getFirst()).toURI().toURL().toExternalForm()));
-            } else {
-                VerImg1.setImage(null);
-            }
-
+                //VerImg1.setImage(new Image(new File(imagenes.getFirst()).toURI().toURL().toExternalForm()));
+                VerImg1.setImage(new Image(getClass().getResource(imagenes.getFirst()).toExternalForm()));
             if (imagenes.size() > 1) {
-                VerImg2.setImage(new Image(new File(imagenes.get(1)).toURI().toURL().toExternalForm()));
+                //VerImg2.setImage(new Image(new File(imagenes.get(1)).toURI().toURL().toExternalForm()));
+                VerImg2.setImage(new Image(getClass().getResource(imagenes.get(1)).toExternalForm()));
             } else {
                 VerImg2.setImage(null);
             }
             if (imagenes.size() > 2) {
-                VerImg3.setImage(new Image(new File(imagenes.get(2)).toURI().toURL().toExternalForm()));
+                //VerImg3.setImage(new Image(new File(imagenes.get(2)).toURI().toURL().toExternalForm()));
+                VerImg3.setImage(new Image(getClass().getResource(imagenes.get(2)).toExternalForm()));
             } else {
                 VerImg3.setImage(null);
             }
