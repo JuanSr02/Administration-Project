@@ -375,6 +375,10 @@ public class principalController {
                 // Eliminar la propiedad de la base de datos
                 propiedadDAO.delete(propiedadSeleccionada.getID());
 
+                // Si la propiedad que se estaba viendo detallada es la q se borra, limpiar esa ventana
+                if (propiedadSeleccionada.getDireccion().equalsIgnoreCase(lblDireccion.getText()))
+                    LimpiarModificar();
+
                 // Verificar si el dueño no tiene más propiedades y eliminarlo si es necesario
                 if (propiedadDAO.contarPropiedadesPorPersona(duenio.getID()) == 0) {
                     personaDAO.delete(duenio.getID());
@@ -444,6 +448,17 @@ public class principalController {
 
     @FXML
     public void VerPropiedadDetallada() throws MalformedURLException {
+        // Limpiar Formulario
+        tfPrecioVer.clear();
+        tfEstadoVer.clear();
+        tfNombreDuenioVer.clear();
+        tfDNIDuenioVer.clear();
+        tfCelularDuenioVer.clear();
+        cbMonedaVer.setValue(null);
+        tfNombreInquilinoVer.clear();
+        tfDNIInquilinoVer.clear();
+        tfCelularInquilinoVer.clear();
+        tfNotasVer.clear();
         // Obtener la propiedad seleccionada de la tabla
         PropiedadDAO propiedadSeleccionada = tableView.getSelectionModel().getSelectedItem();
         propiedadSeleccionada = propiedadDAO.getPropiedadConFotos(propiedadSeleccionada.getID());
@@ -592,6 +607,12 @@ public class principalController {
         propiedadDAO.update(propiedadModificada);
         mostrarAlerta("Propiedad Actualizada!","La propiedad con dirección: " + propiedadModificada.getDireccion() + " Fue modificada Correctamente");
         tabPane.getSelectionModel().select(tabViewProperties);
+        LimpiarModificar();
+
+    }
+
+    @FXML
+    public void LimpiarModificar(){
         lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
         gridPaneVer.setVisible(false);
         lblPropiedadSeleccionada.setText("No hay propiedad seleccionada.");
@@ -600,7 +621,6 @@ public class principalController {
         VerImg3.setVisible(false);
         lblFotos.setVisible(false);
         lblDireccion.setVisible(false);
-
         tfPrecioVer.clear();
         tfEstadoVer.clear();
         tfNombreDuenioVer.clear();
@@ -611,9 +631,6 @@ public class principalController {
         tfDNIInquilinoVer.clear();
         tfCelularInquilinoVer.clear();
         tfNotasVer.clear();
-
-
-
     }
 
 }
