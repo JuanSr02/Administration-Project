@@ -121,6 +121,14 @@ public class principalController {
             }
         });
 
+        tabModifyProperty.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal) { // Si la pestaña se cambia
+                LimpiarModificar();
+            }
+        });
+
+
+
     }
 
     private String obtenerTipoPropiedad(PropiedadDAO propiedad) {
