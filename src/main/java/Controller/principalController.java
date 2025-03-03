@@ -57,7 +57,7 @@ public class principalController {
     @FXML
     private TextField tfDireccion, tfPrecio, tfEstado, tfNombreDuenio, tfDNIDuenio, tfCelularDuenio, tfAmbientes, tfM2Cubiertos, tfM2Descubiertos, tfNombreInquilino, tfDNIInquilino, tfCelularInquilino, tfNotas, tfBuscador, tfPrecioVer, tfEstadoVer, tfNombreDuenioVer, tfDNIDuenioVer, tfCelularDuenioVer, tfNombreInquilinoVer, tfDNIInquilinoVer, tfCelularInquilinoVer, tfNotasVer;
     @FXML
-    private Label lblImagenesSeleccionadas, lblImagenesSeleccionadasVer, lblPropiedadSeleccionada;
+    private Label lblImagenesSeleccionadas, lblImagenesSeleccionadasVer, lblPropiedadSeleccionada,lblFotos;
     @FXML
     private Button btnSeleccionarImagen, btnSeleccionarImagenVer, btnActualizarPropiedad, btnVerModificarProp, btnBorrarProp;
     @FXML
@@ -99,6 +99,7 @@ public class principalController {
         btnVerModificarProp.setVisible(false);
         btnBorrarProp.setVisible(false);
         gridPaneVer.setVisible(false);
+        lblFotos.setVisible(false);
 
         // Listener para detectar selección en la tabla
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -439,7 +440,8 @@ public class principalController {
         propiedadSeleccionada = propiedadDAO.getPropiedadConFotos(propiedadSeleccionada.getID());
         lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
         gridPaneVer.setVisible(true);
-        lblPropiedadSeleccionada.setVisible(false);
+        lblFotos.setVisible(true);
+        lblPropiedadSeleccionada.setText(obtenerTipoPropiedad(propiedadSeleccionada) + " con dirección: " + propiedadSeleccionada.getDireccion());
         VerImg1.setVisible(true);
         VerImg2.setVisible(true);
         VerImg3.setVisible(true);
@@ -504,12 +506,6 @@ public class principalController {
     public void modificarPropiedad() {
         PropiedadDAO propiedadModificada = tableView.getSelectionModel().getSelectedItem();
         propiedadModificada = propiedadDAO.getPropiedadConFotos(propiedadModificada.getID());
-        lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
-        gridPaneVer.setVisible(false);
-        lblPropiedadSeleccionada.setVisible(true);
-        VerImg1.setVisible(false);
-        VerImg2.setVisible(false);
-        VerImg3.setVisible(false);
 
         propiedadModificada.setPrecio_Venta_Alquiler(Double.parseDouble(tfPrecioVer.getText()));
         propiedadModificada.setEstado(tfEstadoVer.getText());
@@ -525,7 +521,11 @@ public class principalController {
                     nuevaPersona.setNombreCompleto(tfNombreDuenioVer.getText());
                     nuevaPersona.setDNI_CUIT_CUIL(tfDNIDuenioVer.getText());
                     nuevaPersona.setTelefono(tfCelularDuenioVer.getText());
-                    personaDAO.create(nuevaPersona);
+                    try {
+                        personaDAO.create(nuevaPersona);
+                    }catch(Exception e){
+                        mostrarAlerta("Error","Ya existe una persona con el DNI: " + tfDNIDuenioVer.getText());
+                    }
                     return nuevaPersona;
                 });
 
@@ -536,7 +536,11 @@ public class principalController {
         duenio.setNombreCompleto(tfNombreDuenioVer.getText());
         duenio.setDNI_CUIT_CUIL(tfDNIDuenioVer.getText());
         duenio.setTelefono(tfCelularDuenioVer.getText());
-
+        try {
+            personaDAO.update(duenio);
+        }catch(Exception e){
+            mostrarAlerta("Error","Ya existe una persona con el DNI: " + tfDNIDuenioVer.getText());
+        }
 
         // Buscar o crear inquilino si está presente
         PersonaDAO inquilino = null;
@@ -549,17 +553,28 @@ public class principalController {
                         nuevaPersona.setNombreCompleto(tfNombreInquilinoVer.getText());
                         nuevaPersona.setDNI_CUIT_CUIL(tfDNIInquilinoVer.getText());
                         nuevaPersona.setTelefono(tfCelularInquilinoVer.getText());
-                        personaDAO.create(nuevaPersona);
+                        try {
+                            personaDAO.create(nuevaPersona);
+                        }catch(Exception e){
+                            mostrarAlerta("Error","Ya existe una persona con el DNI: " + tfDNIInquilinoVer.getText());
+                        }
                         return nuevaPersona;
                     });
         }
-        if(inquilino!=null){
+        if(inquilino != null){
             propiedadModificada.setInquilino(inquilino);
             propiedadModificada.getInquilino().setNombreCompleto(tfNombreInquilinoVer.getText());
             propiedadModificada.getInquilino().setDNI_CUIT_CUIL(tfDNIInquilinoVer.getText());
             propiedadModificada.getInquilino().setTelefono(tfCelularInquilinoVer.getText());
+            inquilino.setNombreCompleto(tfNombreInquilinoVer.getText());
+            inquilino.setDNI_CUIT_CUIL(tfDNIInquilinoVer.getText());
+            inquilino.setTelefono(tfCelularInquilinoVer.getText());
+            try {
+                personaDAO.update(inquilino);
+            }catch(Exception e){
+                mostrarAlerta("Error","Ya existe una persona con el DNI: " + tfDNIInquilinoVer.getText());
+            }
         }
-
 
         if (rutaImagenesSeleccionadas != null) {
             propiedadModificada.setFotos(rutaImagenesSeleccionadas);
@@ -567,6 +582,14 @@ public class principalController {
 
         propiedadDAO.update(propiedadModificada);
         mostrarAlerta("Propiedad Actualizada!","La propiedad con dirección: " + propiedadModificada.getDireccion() + " Fue modificada Correctamente");
+        tabPane.getSelectionModel().select(tabViewProperties);
+        lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
+        gridPaneVer.setVisible(false);
+        lblPropiedadSeleccionada.setText("No hay propiedad seleccionada.");
+        VerImg1.setVisible(false);
+        VerImg2.setVisible(false);
+        VerImg3.setVisible(false);
+        lblFotos.setVisible(false);
 
     }
 

@@ -246,7 +246,7 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="750.0">
                <children>
-                  <GridPane fx:id="gridPaneVer" layoutY="59.0" prefHeight="326.0" prefWidth="754.0">
+                  <GridPane fx:id="gridPaneVer" layoutY="59.0" prefHeight="295.0" prefWidth="754.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.4000244140625" minWidth="10.0" prefWidth="416.8" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="557.5999877929687" minWidth="10.0" prefWidth="338.40000000000003" />
@@ -346,6 +346,7 @@
                   <ImageView fx:id="VerImg2" fitHeight="200.0" fitWidth="230.0" layoutX="293.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="VerImg3" fitHeight="200.0" fitWidth="230.0" layoutX="550.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="lblPropiedadSeleccionada" alignment="CENTER" layoutX="30.0" layoutY="14.0" styleClass="titulo-campo" text="No hay propiedad seleccionada." />
+                  <Label fx:id="lblFotos" layoutX="14.0" layoutY="336.0" styleClass="titulo-campo" text="Fotos de la propiedad:" />
                </children>
             </AnchorPane>
          </content>
