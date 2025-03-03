@@ -345,8 +345,9 @@
                   <ImageView fx:id="VerImg1" fitHeight="200.0" fitWidth="230.0" layoutX="38.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="VerImg2" fitHeight="200.0" fitWidth="230.0" layoutX="293.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="VerImg3" fitHeight="200.0" fitWidth="230.0" layoutX="550.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="lblPropiedadSeleccionada" alignment="CENTER" layoutX="30.0" layoutY="14.0" styleClass="titulo-campo" text="No hay propiedad seleccionada." />
+                  <Label fx:id="lblPropiedadSeleccionada" alignment="CENTER" layoutX="30.0" layoutY="14.0" styleClass="titulo-campo" text="No hay propiedad Seleccionada." />
                   <Label fx:id="lblFotos" layoutX="14.0" layoutY="336.0" styleClass="titulo-campo" text="Fotos de la propiedad:" />
+                  <Label fx:id="lblDireccion" layoutX="253.0" layoutY="14.0" styleClass="titulo-campo" text="Direccion" />
                </children>
             </AnchorPane>
          </content>

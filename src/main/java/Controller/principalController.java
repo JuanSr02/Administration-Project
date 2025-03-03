@@ -57,7 +57,7 @@ public class principalController {
     @FXML
     private TextField tfDireccion, tfPrecio, tfEstado, tfNombreDuenio, tfDNIDuenio, tfCelularDuenio, tfAmbientes, tfM2Cubiertos, tfM2Descubiertos, tfNombreInquilino, tfDNIInquilino, tfCelularInquilino, tfNotas, tfBuscador, tfPrecioVer, tfEstadoVer, tfNombreDuenioVer, tfDNIDuenioVer, tfCelularDuenioVer, tfNombreInquilinoVer, tfDNIInquilinoVer, tfCelularInquilinoVer, tfNotasVer;
     @FXML
-    private Label lblImagenesSeleccionadas, lblImagenesSeleccionadasVer, lblPropiedadSeleccionada,lblFotos;
+    private Label lblImagenesSeleccionadas, lblImagenesSeleccionadasVer, lblPropiedadSeleccionada,lblFotos,lblDireccion;
     @FXML
     private Button btnSeleccionarImagen, btnSeleccionarImagenVer, btnActualizarPropiedad, btnVerModificarProp, btnBorrarProp;
     @FXML
@@ -100,6 +100,7 @@ public class principalController {
         btnBorrarProp.setVisible(false);
         gridPaneVer.setVisible(false);
         lblFotos.setVisible(false);
+        lblDireccion.setVisible(false);
 
         // Listener para detectar selección en la tabla
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -179,8 +180,16 @@ public class principalController {
                 for (File file : archivosSeleccionados) {
                     // Generar un nombre único
                     i++;
-                    String nombreArchivo = tfDireccion.getText() + "_" + i;
-                    Path destino = directorioDestino.resolve(nombreArchivo);
+                    String nombreArchivo;
+                    Path destino;
+                    if(token==1) {
+                        nombreArchivo = tfDireccion.getText() + "_" + i;
+                        destino = directorioDestino.resolve(nombreArchivo);
+                    }
+                    else{
+                        nombreArchivo = lblDireccion.getText() + "_" + i;
+                        destino = directorioDestino.resolve(nombreArchivo);
+                    }
 
                     // Copiar el archivo
                     Files.copy(file.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
@@ -440,8 +449,10 @@ public class principalController {
         propiedadSeleccionada = propiedadDAO.getPropiedadConFotos(propiedadSeleccionada.getID());
         lblImagenesSeleccionadasVer.setText("Ninguna Imagen Seleccionada.");
         gridPaneVer.setVisible(true);
-        lblFotos.setVisible(true);
-        lblPropiedadSeleccionada.setText(obtenerTipoPropiedad(propiedadSeleccionada) + " con dirección: " + propiedadSeleccionada.getDireccion());
+        if(propiedadSeleccionada.getFotos() != null && !propiedadSeleccionada.getFotos().isEmpty())
+            lblFotos.setVisible(true);
+        lblDireccion.setText(propiedadSeleccionada.getDireccion());
+        lblPropiedadSeleccionada.setText(obtenerTipoPropiedad(propiedadSeleccionada) + " con dirección: " + lblDireccion.getText());
         VerImg1.setVisible(true);
         VerImg2.setVisible(true);
         VerImg3.setVisible(true);
@@ -467,8 +478,6 @@ public class principalController {
         }
 
         tfNotasVer.setText(propiedadSeleccionada.getNotas_servicios_comodidades());
-
-
 
 
         // Cargar imágenes si existen
@@ -590,6 +599,20 @@ public class principalController {
         VerImg2.setVisible(false);
         VerImg3.setVisible(false);
         lblFotos.setVisible(false);
+        lblDireccion.setVisible(false);
+
+        tfPrecioVer.clear();
+        tfEstadoVer.clear();
+        tfNombreDuenioVer.clear();
+        tfDNIDuenioVer.clear();
+        tfCelularDuenioVer.clear();
+        cbMonedaVer.setValue(null);
+        tfNombreInquilinoVer.clear();
+        tfDNIInquilinoVer.clear();
+        tfCelularInquilinoVer.clear();
+        tfNotasVer.clear();
+
+
 
     }
 
