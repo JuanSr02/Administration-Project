@@ -181,7 +181,7 @@ public class principalController {
             List<String> rutasGuardadas = new ArrayList<>();
 
             try {
-                Path directorioDestino = Paths.get("src/main/resources/images/properties/");
+                Path directorioDestino = Paths.get("fotos/propiedades/");
                 if (!Files.exists(directorioDestino)) {
                     Files.createDirectories(directorioDestino);
                 }
@@ -204,7 +204,7 @@ public class principalController {
                     Files.copy(file.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
 
                     // Agregar la ruta relativa a la lista
-                    rutasGuardadas.add("/images/properties/" + nombreArchivo);
+                    rutasGuardadas.add("fotos/propiedades/" + nombreArchivo + ".jpg");
                 }
 
                 // Guardamos la lista de rutas en la propiedad
@@ -423,7 +423,7 @@ public class principalController {
         if (rutasImagenes != null && !rutasImagenes.isEmpty()) {
             for (String rutaRelativa : rutasImagenes) {
                 try {
-                    File imagen = new File("src/main/resources" + rutaRelativa);
+                    File imagen = new File(rutaRelativa);
                     if (imagen.exists() && imagen.isFile()) {
                         if (imagen.delete()) {
                             System.out.println("Imagen eliminada: " + imagen.getAbsolutePath());
@@ -538,17 +538,17 @@ public class principalController {
 
         if (imagenes != null && !imagenes.isEmpty()) {
             // Asignar imágenes a los ImageView (asegurarse de que sean nodos en el FXML)
-                //VerImg1.setImage(new Image(new File(imagenes.getFirst()).toURI().toURL().toExternalForm()));
-                VerImg1.setImage(new Image(getClass().getResource(imagenes.getFirst()).toExternalForm()));
+                VerImg1.setImage(new Image(new File(imagenes.getFirst()).toURI().toURL().toExternalForm()));
+                //VerImg1.setImage(new Image(getClass().getResource(imagenes.getFirst()).toExternalForm()));
             if (imagenes.size() > 1) {
-                //VerImg2.setImage(new Image(new File(imagenes.get(1)).toURI().toURL().toExternalForm()));
-                VerImg2.setImage(new Image(getClass().getResource(imagenes.get(1)).toExternalForm()));
+                VerImg2.setImage(new Image(new File(imagenes.get(1)).toURI().toURL().toExternalForm()));
+                //VerImg2.setImage(new Image(getClass().getResource(imagenes.get(1)).toExternalForm()));
             } else {
                 VerImg2.setImage(null);
             }
             if (imagenes.size() > 2) {
-                //VerImg3.setImage(new Image(new File(imagenes.get(2)).toURI().toURL().toExternalForm()));
-                VerImg3.setImage(new Image(getClass().getResource(imagenes.get(2)).toExternalForm()));
+                VerImg3.setImage(new Image(new File(imagenes.get(2)).toURI().toURL().toExternalForm()));
+                //VerImg3.setImage(new Image(getClass().getResource(imagenes.get(2)).toExternalForm()));
             } else {
                 VerImg3.setImage(null);
             }
