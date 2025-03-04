@@ -474,6 +474,8 @@ public class principalController {
             ) {
                 propiedadesFiltradas.add(propiedad);
             }
+            if(obtenerTipoPropiedad(propiedad).toLowerCase().contains(busqueda))
+                propiedadesFiltradas.add(propiedad);
         }
 
         tableView.setItems(propiedadesFiltradas);
