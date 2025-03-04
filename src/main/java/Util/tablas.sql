@@ -47,14 +47,3 @@ CREATE TABLE IF NOT EXISTS Terreno_Lote (
     ID INT PRIMARY KEY,
     FOREIGN KEY (ID) REFERENCES Propiedad(ID) ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS Transaccion (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    -- Relación con Persona (comprador)
-    nombreComprador INT,
-    -- Relación con Propiedad
-    IDinmueble INT,
-    fecha VARCHAR(20),
-    monto DOUBLE,
-    FOREIGN KEY (nombreComprador) REFERENCES Persona(ID) ON DELETE CASCADE,
-    FOREIGN KEY (IDinmueble) REFERENCES Propiedad(ID) ON DELETE CASCADE
-);

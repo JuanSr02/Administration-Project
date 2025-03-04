@@ -12,7 +12,6 @@
         <class>DAO.CasaDAO</class>
         <class>DAO.LocalComercialDAO</class>
         <class>DAO.Terreno_LoteDAO</class>
-        <class>DAO.TransaccionDAO</class>
 
         <!-- Agrega todas las clases de entidades aquí -->
 
