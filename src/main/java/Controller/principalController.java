@@ -192,11 +192,11 @@ public class principalController {
                     String nombreArchivo;
                     Path destino;
                     if(token==1) {
-                        nombreArchivo = tfDireccion.getText() + "-" + i;
+                        nombreArchivo = tfDireccion.getText() + "-" + i + ".jpg";
                         destino = directorioDestino.resolve(nombreArchivo);
                     }
                     else{
-                        nombreArchivo = lblDireccion.getText() + "-" + i;
+                        nombreArchivo = lblDireccion.getText() + "-" + i + ".jpg";
                         destino = directorioDestino.resolve(nombreArchivo);
                     }
 
@@ -204,7 +204,7 @@ public class principalController {
                     Files.copy(file.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
 
                     // Agregar la ruta relativa a la lista
-                    rutasGuardadas.add("fotos/propiedades/" + nombreArchivo + ".jpg");
+                    rutasGuardadas.add("fotos/propiedades/" + nombreArchivo);
                 }
 
                 // Guardamos la lista de rutas en la propiedad
@@ -331,7 +331,7 @@ public class principalController {
             // Limpiar los campos
             tfDireccion.clear();
             tfPrecio.clear();
-            cbTipoPropiedad.setValue(null);
+            cbTipoPropiedad.setValue("Elija el tipo de propiedad");
             tfEstado.clear();
             tfNombreDuenio.clear();
             tfDNIDuenio.clear();
@@ -342,7 +342,7 @@ public class principalController {
             tfM2Cubiertos.clear();
             tfM2Descubiertos.clear();
             tfAmbientes.clear();
-            cbMoneda.setValue(null);
+            cbMoneda.setValue("Elija la moneda");
             tfNotas.clear();
             if (rutaImagenesSeleccionadas != null) {
                 rutaImagenesSeleccionadas.clear();
@@ -510,11 +510,6 @@ public class principalController {
         VerImg2.setVisible(true);
         VerImg3.setVisible(true);
 
-        if (propiedadSeleccionada == null) {
-            mostrarAlerta("Advertencia", "Debe seleccionar una propiedad para ver.");
-            return;
-        }
-
         // Cambiar al tab de modificar propiedad
         tabPane.getSelectionModel().select(tabModifyProperty);
         tfPrecioVer.setText(String.valueOf(propiedadSeleccionada.getPrecio_Venta_Alquiler()));
@@ -636,7 +631,7 @@ public class principalController {
             }
         }
 
-        if (rutaImagenesSeleccionadas != null) {
+        if (rutaImagenesSeleccionadas != null && !rutaImagenesSeleccionadas.isEmpty()) {
             propiedadModificada.setFotos(rutaImagenesSeleccionadas);
         }
 
@@ -662,11 +657,12 @@ public class principalController {
         tfNombreDuenioVer.clear();
         tfDNIDuenioVer.clear();
         tfCelularDuenioVer.clear();
-        cbMonedaVer.setValue(null);
+        cbMonedaVer.setValue("Elija la moneda");
         tfNombreInquilinoVer.clear();
         tfDNIInquilinoVer.clear();
         tfCelularInquilinoVer.clear();
         tfNotasVer.clear();
+        rutaImagenesSeleccionadas.clear();
     }
 
 }
