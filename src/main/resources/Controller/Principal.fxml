@@ -46,7 +46,7 @@
                         <Font name="JetBrains Mono Bold" size="14.0" />
                      </font>
                   </Label>
-                  <StackPane fx:id="titleContainer" prefHeight="110.0" prefWidth="754.0" styleClass="title-container">
+                  <StackPane fx:id="titleContainer" prefHeight="110.0" prefWidth="800.0" styleClass="title-container">
                      <children>
                         <Label prefHeight="70.0" prefWidth="452.0" styleClass="title" text="824 Propiedades" />
                      </children></StackPane>
@@ -69,7 +69,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="btnVerModificarProp" layoutX="147.0" layoutY="500.0" mnemonicParsing="false" onAction="#VerPropiedadDetallada" prefHeight="41.0" prefWidth="204.0" style="-fx-background-color: #1363a8;" text="Ver y Modificar Propiedad" />
+                  <Button fx:id="btnVerModificarProp" layoutX="147.0" layoutY="500.0" mnemonicParsing="false" onAction="#VerPropiedadDetallada" prefHeight="42.0" prefWidth="212.0" style="-fx-background-color: #1363a8;" text="Ver y Modificar Propiedad" />
                   <Button fx:id="btnBorrarProp" layoutX="462.0" layoutY="500.0" mnemonicParsing="false" onAction="#borrarPropiedad" prefHeight="40.0" prefWidth="183.0" style="-fx-background-color: red;" text="Borrar Propiedad" />
                   <TextField fx:id="tfBuscador" layoutX="393.0" layoutY="15.0" prefHeight="40.0" prefWidth="149.0" />
                   <ImageView fitHeight="41.0" fitWidth="42.0" layoutX="554.0" layoutY="14.0" onMouseClicked="#buscarPropiedad" pickOnBounds="true" preserveRatio="true">
@@ -136,7 +136,7 @@
                            <GridPane.margin>
                               <Insets left="15.0" right="10.0" />
                            </GridPane.margin></TextField>
-                        <Button fx:id="btnSeleccionarImagen" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#ImagenAdd" prefHeight="41.0" prefWidth="180.0" text="Seleccionar Imagenes" GridPane.halignment="LEFT" GridPane.rowIndex="7">
+                        <Button fx:id="btnSeleccionarImagen" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#ImagenAdd" prefHeight="42.0" prefWidth="191.0" text="Seleccionar Imagenes" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>

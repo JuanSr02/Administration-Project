@@ -664,7 +664,8 @@ public class principalController {
         tfDNIInquilinoVer.clear();
         tfCelularInquilinoVer.clear();
         tfNotasVer.clear();
-        rutaImagenesSeleccionadas.clear();
+        if(rutaImagenesSeleccionadas!=null)
+            rutaImagenesSeleccionadas.clear();
     }
 
 }
