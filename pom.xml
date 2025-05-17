@@ -136,6 +136,12 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.5.2.Final</version>
         </dependency>
+        <dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.5.4</version> <!-- Asegúrate de usar la última versión -->
+</dependency>
+
 
 
 
