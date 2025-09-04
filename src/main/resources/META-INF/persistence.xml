@@ -13,20 +13,21 @@
         <class>DAO.LocalComercialDAO</class>
         <class>DAO.Terreno_LoteDAO</class>
 
-        <!-- Configuración para PostgreSQL (Supabase) -->
-        <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:5432/postgres" />
-            <property name="jakarta.persistence.jdbc.user" value="postgres.btgtssewfpftkcnuvzea" />
-            <property name="jakarta.persistence.jdbc.password" value="danielaRodoni" />
-            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+        <!-- Agrega todas las clases de entidades aquí -->
 
-            <!-- Configuración de Hibernate para PostgreSQL -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+        <properties>
+
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/martillero" />
+            <property name="jakarta.persistence.jdbc.user" value="root" />
+            <property name="jakarta.persistence.jdbc.password" value="admin" />
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
             <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.use_sql_comments" value="false"/>
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+
         </properties>
     </persistence-unit>
 </persistence>
-
