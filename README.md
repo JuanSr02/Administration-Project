@@ -64,8 +64,11 @@ Para ejecutar el proyecto necesitarás:
 ---
 
 ## 📸 Capturas de pantalla
+<img width="1000" height="839" alt="{9BB56F4D-2948-41BD-ACF2-47C658FA7F47}" src="https://github.com/user-attachments/assets/294412a5-4e36-4899-8471-f0d3d0ee3348" />
+<img width="991" height="828" alt="{9D8F516B-A643-4D85-89FF-2619B96117A8}" src="https://github.com/user-attachments/assets/97e0e843-f880-4786-84eb-31316671d367" />
+<img width="981" height="820" alt="{6B6D25D2-B1ED-433F-B605-544F6A638AEA}" src="https://github.com/user-attachments/assets/e819f7ca-bb61-45c8-9d58-a0a67f0defa0" />
+<img width="974" height="806" alt="{3C78ABA9-7F4E-49F8-9A63-4BF4586505A8}" src="https://github.com/user-attachments/assets/c57c168a-eb42-4d2f-8565-62b6ccfa6fdd" />
 
-*(Agregá aquí screenshots de la interfaz para ilustrar mejor la aplicación)*
 
 ---
 
