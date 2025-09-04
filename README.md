@@ -1,3 +1,11 @@
+[![Java](https://img.shields.io/badge/Java-17-blue?logo=java&logoColor=white)](https://www.java.com/) 
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-brightgreen?logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Spring Security](https://img.shields.io/badge/Spring%20Security-5.8.0-brightgreen?logo=spring&logoColor=white)](https://spring.io/projects/spring-security)
+[![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-3.2.5-brightgreen?logo=spring&logoColor=white)](https://spring.io/projects/spring-data-jpa)
+[![JWT](https://img.shields.io/badge/JWT-JSON%20Web%20Tokens-blue?logo=json-web-tokens&logoColor=white)](https://jwt.io/)
+[![OpenSSL](https://img.shields.io/badge/OpenSSL-1.1.1-blue?logo=openssl&logoColor=white)](https://www.openssl.org/)
+[![H2 Database](https://img.shields.io/badge/H2-Database-blue?logo=h2&logoColor=white)](https://www.h2database.com/)
+
 # 🏠 Administration Project - Software Martillero
 
 Este proyecto implementa un sistema de administración para una **martillera pública**, desarrollado en **Java 21** bajo el patrón **MVC** e interfaz gráfica con **JavaFX**.  
